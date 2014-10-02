@@ -28,19 +28,19 @@ void drawHemisphere(float radius, int longSlices, int latSlices,int p,int q)
       for(i = 0; i <= p; i++)
       {
 		 glTexCoord2f((float)i/p, (float)(j+1)/q);
-		 glNormal3f( radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i+0.5)/longSlices * PI ),
+		 glNormal3f( radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i)/longSlices * PI ),
                      radius * sin( (float)(j+1)/latSlices * PI/2.0 ),
-					 radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i+0.5)/longSlices * PI ) );
-         glVertex3f( radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i+0.5)/longSlices * PI ),
+					 radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i)/longSlices * PI ) );
+         glVertex3f( radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i)/longSlices * PI ),
                      radius * sin( (float)(j+1)/latSlices * PI/2.0 ),
-					 radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i+0.5)/longSlices * PI ) );
+					 radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i)/longSlices * PI ) );
 		 glTexCoord2f((float)i/p, (float)j/q);
-		 glNormal3f( radius * cos( (float)j/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i+0.5)/longSlices * PI ),
+		 glNormal3f( radius * cos( (float)j/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i)/longSlices * PI ),
                      radius * sin( (float)j/latSlices * PI/2.0 ),
-					 radius * cos( (float)j/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i+0.5)/longSlices * PI ) );
-         glVertex3f( radius * cos( (float)j/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i+0.5)/longSlices * PI ),
+					 radius * cos( (float)j/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i)/longSlices * PI ) );
+         glVertex3f( radius * cos( (float)j/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i)/longSlices * PI ),
                      radius * sin( (float)j/latSlices * PI/2.0 ),
-					 radius * cos( (float)j/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i+0.5)/longSlices * PI ) );
+					 radius * cos( (float)j/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i)/longSlices * PI ) );
 	  }
       glEnd();
    }
@@ -152,7 +152,7 @@ GLfloat mat_shininessORANGE[] ={128.0};
 
 void struct_torso(void)
 {
-		//! Torso
+		// Torso
 	glNewList(torso,GL_COMPILE);
 	SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
 	glColor3f(1.0,1.0,1.0);
@@ -176,11 +176,9 @@ void struct_torso(void)
 		gluDisk(quad,0,0.2,10,5);
 	glPopMatrix();
 	glEndList();
-		//! Armor
+		// Armor
 	glNewList(armor,GL_COMPILE);
 	glPushMatrix();
-		SetMaterial(mat_specularORANGE, mat_ambientORANGE, mat_diffuseORANGE, mat_shininessORANGE);
-		glColor3f(1,0.5,0);
 		glRotatef(180,0,0,1);
 		glScalef(1.9,1.2,0.75);
 		drawHemisphere(0.6,20,8,10,5);

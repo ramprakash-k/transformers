@@ -5,6 +5,7 @@
 #include "render_drawing.hpp"
 #include "transformers.hpp"
 #include "transformers_defs.hpp"
+#include "image.hpp"
 
 float bust_angle_y=0.0f;
 float bust_angle_x=0.0f;
@@ -20,6 +21,8 @@ float right_d_leg_angle=0.0f;
 float left_d_leg_angle=0.0f;
 float lightturn=0.0f,lightturn1=0.0f;
 float cam_x=0.0f,cam_z=-0.0f,cam_ay=0.0f;
+
+GLuint armort[1];
 
 void lights(void)
 {
@@ -52,9 +55,12 @@ void DrawRobot(void)
 		/*----------------TORSO, NECK & HEAD-------------*/
 		glCallList(torso);
 		glPushMatrix();
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D,armort[0]);
 			//~ glRotatef(180,1,0,0);
 			glTranslatef(0,0,0.2);
 			glCallList(armor);
+			glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
 		glPushMatrix();
 			glCallList(neck);

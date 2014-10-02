@@ -2,6 +2,7 @@
 #include "gl_framework.hpp"
 #include "render_drawing.hpp"
 #include "transformers.hpp"
+#include "image.hpp"
 
 namespace csX75
 {
@@ -11,6 +12,8 @@ int win_height;
 //! Initialize GL State
 void initGL(void)
 {
+	LoadGLTextures("armor.bmp",armort);
+	glEnable(GL_TEXTURE_2D);
     glShadeModel(GL_SMOOTH);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	glClearDepth(1.0f);

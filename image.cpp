@@ -74,11 +74,11 @@ int ImageLoad(char *filename, Image *image) {
 	return 0;
     }
 
-    for (i=0;i<size;i+=3) { // reverse all of the colors. (bgr -> rgb)
-	temp = image->data[i];
-	image->data[i] = image->data[i+2];
-	image->data[i+2] = temp;
-    }
+    //~ for (i=0;i<size;i+=3) { // reverse all of the colors. (bgr -> rgb)
+	//~ temp = image->data[i];
+	//~ image->data[i] = image->data[i+2];
+	//~ image->data[i+2] = temp;
+    //~ }
     
     // we're done.
     return 1;

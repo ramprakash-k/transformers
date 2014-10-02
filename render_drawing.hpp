@@ -16,6 +16,8 @@ extern float right_d_leg_angle;
 extern float lightturn,lightturn1;
 extern float cam_x,cam_z,cam_ay;
 
+extern GLuint armort[1];
+
 void render_drawing(GLFWwindow* window);
 
 #endif
