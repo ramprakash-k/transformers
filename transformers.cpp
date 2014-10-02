@@ -137,7 +137,7 @@ void struct_torso(void)
 	glPushMatrix();
 		glRotatef(180,1,0,0);
 		glScalef(1.8,1.2,0.75);
-		drawHemisphere(0.6,20,5,20,5);
+		drawHemisphere(0.6,20,5,10,5);
 	glPopMatrix();
 	glPushMatrix();
 		glTranslatef(0,-0.6,0);
