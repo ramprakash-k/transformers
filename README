@@ -1,0 +1,16 @@
+1.
+To compile just type "make" on the command line.
+
+2.
+Pressing ESC will quit the program.
+
+3.
+Use 
+
+./transformers
+
+to run the program. You can try this with transformers_complete.
+
+
+4.
+This code uses OpenGL 2.1.
