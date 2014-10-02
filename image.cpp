@@ -1,4 +1,4 @@
-#include <GL/glut.h>
+#include <stdlib.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdio.h>
@@ -24,14 +24,14 @@ int ImageLoad(char *filename, Image *image) {
 
     // read the width
     if ((i = fread(&image->sizeX, 4, 1, file)) != 1) {
-	//~ printf("Error reading width from %s.\n", filename);
+	printf("Error reading width from %s.\n", filename);
 	return 0;
     }
     //~ printf("Width of %s: %lu\n", filename, image->sizeX);
     
     // read the height 
     if ((i = fread(&image->sizeY, 4, 1, file)) != 1) {
-	//~ printf("Error reading height from %s.\n", filename);
+	printf("Error reading height from %s.\n", filename);
 	return 0;
     }
     //~ printf("Height of %s: %lu\n", filename, image->sizeY);
@@ -41,21 +41,21 @@ int ImageLoad(char *filename, Image *image) {
 
     // read the planes
     if ((fread(&planes, 2, 1, file)) != 1) {
-	//~ printf("Error reading planes from %s.\n", filename);
+	printf("Error reading planes from %s.\n", filename);
 	return 0;
     }
     if (planes != 1) {
-	//~ printf("Planes from %s is not 1: %u\n", filename, planes);
+	printf("Planes from %s is not 1: %u\n", filename, planes);
 	return 0;
     }
 
     // read the bpp
     if ((i = fread(&bpp, 2, 1, file)) != 1) {
-	//~ printf("Error reading bpp from %s.\n", filename);
+	printf("Error reading bpp from %s.\n", filename);
 	return 0;
     }
     if (bpp != 24) {
-	//~ printf("Bpp from %s is not 24: %u\n", filename, bpp);
+	printf("Bpp from %s is not 24: %u\n", filename, bpp);
 	return 0;
     }
 	
@@ -65,20 +65,20 @@ int ImageLoad(char *filename, Image *image) {
     // read the data. 
     image->data = (char *) malloc(size);
     if (image->data == NULL) {
-	//~ printf("Error allocating memory for color-corrected image data");
+	printf("Error allocating memory for color-corrected image data");
 	return 0;	
     }
 
     if ((i = fread(image->data, size, 1, file)) != 1) {
-	//~ printf("Error reading image data from %s.\n", filename);
+	printf("Error reading image data from %s.\n", filename);
 	return 0;
     }
 
-    //~ for (i=0;i<size;i+=3) { // reverse all of the colors. (bgr -> rgb)
-	//~ temp = image->data[i];
-	//~ image->data[i] = image->data[i+2];
-	//~ image->data[i+2] = temp;
-    //~ }
+    for (i=0;i<size;i+=3) { // reverse all of the colors. (bgr -> rgb)
+	temp = image->data[i];
+	image->data[i] = image->data[i+2];
+	image->data[i+2] = temp;
+    }
     
     // we're done.
     return 1;
@@ -93,12 +93,13 @@ void LoadGLTextures(char *filename,GLuint *texture)
     // allocate space for texture
     image1 = (Image *) malloc(sizeof(Image));
     if (image1 == NULL) {
-	//~ printf("Error allocating space for image");
-	exit(0);
+	printf("Error allocating space for image");
+	return;
     }
 
     if (!ImageLoad(filename, image1)) {
-	exit(1);
+	printf("Failed to load");
+	return;
     }        
 
     // Create Texture	

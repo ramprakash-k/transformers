@@ -7,6 +7,7 @@
 #include "transformers_defs.hpp"
 #include "transformers.hpp"
 #include "gl_framework.hpp"
+#include "render_drawing.hpp"
 
 void SetMaterial(GLfloat spec[], GLfloat amb[], GLfloat diff[], GLfloat shin[])
 {
@@ -152,15 +153,26 @@ GLfloat mat_shininessORANGE[] ={128.0};
 
 void struct_torso(void)
 {
+		// Armor
+	glNewList(armor,GL_COMPILE);
+	glPushMatrix();
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D,armort[0]);
+		glRotatef(180,0,0,1);
+		glScalef(1.9,1.5,0.75);
+		drawHemisphere(0.6,20,8,10,5);
+		glDisable(GL_TEXTURE_2D);
+	glPopMatrix();
+	glEndList();
 		// Torso
 	glNewList(torso,GL_COMPILE);
 	SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
 	glColor3f(1.0,1.0,1.0);
 	glPushMatrix();
 		glRotatef(-90,1,0,0);
-		glScalef(1.8,0.75,1);
 		GLUquadric* quad=gluNewQuadric();
-		gluDisk(quad,0,0.6,20,5);
+		glScalef(1.8,0.75,1);
+		gluDisk(quad,0.4,0.6,20,5);
 	glPopMatrix();
 	glPushMatrix();
 		glRotatef(180,1,0,0);
@@ -176,14 +188,6 @@ void struct_torso(void)
 		gluDisk(quad,0,0.2,10,5);
 	glPopMatrix();
 	glEndList();
-		// Armor
-	glNewList(armor,GL_COMPILE);
-	glPushMatrix();
-		glRotatef(180,0,0,1);
-		glScalef(1.9,1.2,0.75);
-		drawHemisphere(0.6,20,8,10,5);
-	glPopMatrix();
-	glEndList();
 }
 
 void struct_neck(void)
@@ -195,6 +199,13 @@ void struct_neck(void)
 		glRotatef(-90,1,0,0);
 		GLUquadric* quad=gluNewQuadric();
 		gluCylinder(quad,0.15,0.15,0.2,10,5);
+		glScalef(1.8,0.75,1);
+		SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
+		glColor3f(1.0,1.0,1.0);
+		gluDisk(quad,0,0.4,20,5);
+		glTranslatef(0,0,-0.001);
+		glRotatef(180,1,0,0);
+		gluDisk(quad,0,0.4,20,5);
 	glPopMatrix();
 	glEndList();
 }
@@ -212,16 +223,10 @@ void struct_head(void)
 			gluCylinder(quad,0.2,0.1,0.2,10,5);
 		glPopMatrix();
 		glPushMatrix();
-			glTranslatef(0,0.18,0.07);
-			glRotatef(-120,1,0,0);
-			glScalef(0.2,0.8,2.3);
-			gluCylinder(quad,0.1,0,0.2,3,5);
-		glPopMatrix();
-		glPushMatrix();
-				SetMaterial(mat_specularORANGE, mat_ambientORANGE, mat_diffuseORANGE, mat_shininessORANGE);
-				glColor3f(1,0.5,0);
-				glTranslatef(0,0.2,0);
-				drawHemisphere(0.1,10,5,10,5);
+			SetMaterial(mat_specularORANGE, mat_ambientORANGE, mat_diffuseORANGE, mat_shininessORANGE);
+			glColor3f(1,0.5,0);
+			glTranslatef(0,0.2,0);
+			drawHemisphere(0.1,10,5,10,5);
 		glPopMatrix();
 		SetMaterial(mat_specularBLUE, mat_ambientBLUE, mat_diffuseBLUE, mat_shininessBLUE);
 		glColor3ub(0,0,255);
@@ -230,6 +235,15 @@ void struct_head(void)
 			glScalef(0.18,0.1,0.1);
 			drawCube(1);
 		glPopMatrix();
+	glPopMatrix();
+	glEndList();
+	glNewList(head_horn,GL_COMPILE);
+	glPushMatrix();
+		SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
+		glColor3ub(255,255,255);
+		glRotatef(-90,1,0,0);
+		glScalef(0.2,0.8,2.3);
+		gluCylinder(quad,0.1,0,0.2,3,5);
 	glPopMatrix();
 	glEndList();
 }
@@ -559,13 +573,13 @@ void struct_dino_leg(void)
 
 void init_structures(void)
 {
-  struct_head();
-  struct_torso();
-  struct_neck();
-  struct_thigh();
-  struct_upper_arm();
-  struct_forearm();
-  struct_leg();
-  struct_hand();
-  struct_dino_leg();
+	struct_torso();
+	struct_head();
+	struct_neck();
+	struct_thigh();
+	struct_upper_arm();
+	struct_forearm();
+	struct_leg();
+	struct_hand();
+	struct_dino_leg();
 }

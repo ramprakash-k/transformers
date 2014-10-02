@@ -10,7 +10,7 @@ all: $(BIN)
 
 
 $(BIN): $(SRCS) $(INCLUDES)
-	g++ $(CPPFLAGS) $(SRCS) -o $(BIN) $(LDFLAGS) $(LIBS)
+	g++ -w $(CPPFLAGS) $(SRCS) -o $(BIN) $(LDFLAGS) $(LIBS)
 
 clean:
 	rm -f $(BIN)

@@ -13,7 +13,7 @@ int win_height;
 void initGL(void)
 {
 	LoadGLTextures("armor.bmp",armort);
-	glEnable(GL_TEXTURE_2D);
+	//~ glEnable(GL_TEXTURE_2D);
     glShadeModel(GL_SMOOTH);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	glClearDepth(1.0f);
@@ -59,6 +59,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         glfwSetWindowShouldClose(window, GL_TRUE);
     if (action ==  GLFW_PRESS || action == GLFW_REPEAT)
     {
+		if (key == GLFW_KEY_H)
+		{
+			head_pop+=3;
+			if(head_pop>360)head_pop=0;
+		}
 		if (key == GLFW_KEY_LEFT)
 			bust_angle_y-=angle_step;
 		if (key == GLFW_KEY_RIGHT)

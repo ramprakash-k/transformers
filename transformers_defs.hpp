@@ -13,6 +13,7 @@
 #define forearm			5
 #define leg				6
 #define head			7
+#define head_horn		701
 #define hand			8
 #define d_leg			801
 #define foot			9

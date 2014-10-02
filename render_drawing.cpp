@@ -9,6 +9,7 @@
 
 float bust_angle_y=0.0f;
 float bust_angle_x=0.0f;
+int head_pop=0.0f;
 float right_arm_angle=0.0f;
 float left_arm_angle=0.0f;
 float right_forearm_angle=0.0f;
@@ -55,18 +56,20 @@ void DrawRobot(void)
 		/*----------------TORSO, NECK & HEAD-------------*/
 		glCallList(torso);
 		glPushMatrix();
-			glEnable(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D,armort[0]);
 			//~ glRotatef(180,1,0,0);
 			glTranslatef(0,0,0.2);
 			glCallList(armor);
-			glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
 		glPushMatrix();
+			glRotatef(head_pop,0,0,1);
 			glCallList(neck);
 			glPushMatrix();
 				glTranslatef(0,0.1,0);
 				glCallList(head);
+				glScalef(1.5,1.5,1.5);
+				glTranslatef(0,0.18,0.07);
+				glRotatef(-30,1,0,0);
+				glCallList(head_horn);
 			glPopMatrix();
 		glPopMatrix();
 		/*-------------------RIGHT ARM, FOREARM & HAND----------*/

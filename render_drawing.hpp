@@ -3,6 +3,7 @@
 
 extern float bust_angle_y;
 extern float bust_angle_x;
+extern int head_pop;
 extern float right_arm_angle;
 extern float left_arm_angle;
 extern float right_forearm_angle;
