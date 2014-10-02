@@ -23,7 +23,7 @@ float cam_x=0.0f,cam_z=-0.0f,cam_ay=0.0f;
 
 void lights(void)
 {
-  GLfloat position[] =  {0.0, 0.0, 2.0, 1.0};
+  GLfloat position[] =  {0.0, 0.0, 3.0, 1.0};
   glRotatef(lightturn1, 1.0, 0.0, 0.0);
   glRotatef(lightturn, 0.0, 1.0, 0.0);
 
@@ -35,12 +35,12 @@ void lights(void)
   glLightfv(GL_LIGHT0, GL_POSITION, position);
   glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 80.0);
 
-  glTranslatef(0.0, 0.0, 2.0);
+  glTranslatef(0.0, 0.0, 3.0);
   glDisable(GL_LIGHTING);
   glColor3f(1,1,0);
   GLUquadric* quad=gluNewQuadric();
   gluQuadricDrawStyle(quad,GLU_LINE);
-  gluSphere(quad,0.1,4,2);
+  gluSphere(quad,0.05,4,2);
   glEnable(GL_LIGHTING);
 }
 
@@ -51,6 +51,11 @@ void DrawRobot(void)
 		glRotatef(bust_angle_x,1,0,0);
 		/*----------------TORSO, NECK & HEAD-------------*/
 		glCallList(torso);
+		glPushMatrix();
+			//~ glRotatef(180,1,0,0);
+			glTranslatef(0,0,0.2);
+			glCallList(armor);
+		glPopMatrix();
 		glPushMatrix();
 			glCallList(neck);
 			glPushMatrix();
