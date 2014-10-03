@@ -11,18 +11,33 @@ float bust_angle_y=0.0f;
 float bust_angle_x=0.0f;
 float armor_angle=0.0f;
 int head_pop=0.0f;
+float head_angle=0.0f;
+float head_angle1=0.0f;
+float head_angle2=0.0f;
 float right_arm_angle=0.0f;
 float left_arm_angle=0.0f;
+float right_arm_angle1=0.0f;
+float left_arm_angle1=0.0f;
+float right_arm_angle2=0.0f;
+float left_arm_angle2=0.0f;
 float right_forearm_angle=0.0f;
 float left_forearm_angle=0.0f;
 float left_thigh_angle=0.0f;
 float right_thigh_angle=0.0f;
+float left_thigh_angle1=0.0f;
+float right_thigh_angle1=0.0f;
+float left_thigh_angle2=0.0f;
+float right_thigh_angle2=0.0f;
 float right_leg_angle=0.0f;
 float left_leg_angle=0.0f;
 float right_foot_angle=90.0f;
 float left_foot_angle=90.0f;
 float right_wrist_angle=0.0f;
 float left_wrist_angle=0.0f;
+float right_wrist_angle1=0.0f;
+float left_wrist_angle1=0.0f;
+float right_wrist_angle2=0.0f;
+float left_wrist_angle2=0.0f;
 float right_d_leg_angle=0.0f;
 float left_d_leg_angle=0.0f;
 float lightturn=0.0f,lightturn1=0.0f;
@@ -97,6 +112,9 @@ void DrawRobot(void)
 			glCallList(neck);
 			glPushMatrix();
 				glTranslatef(0,0.1,0);
+				glRotatef(head_angle,1,0,0);
+				glRotatef(head_angle1,0,1,0);
+				glRotatef(head_angle2,0,0,1);
 				glCallList(head);
 				float fac=1.0;
 				if(head_pop<-90)fac=0;
@@ -112,7 +130,9 @@ void DrawRobot(void)
 		/*-------------------RIGHT ARM, FOREARM & HAND----------*/
 		glPushMatrix();
 			glTranslatef(-1.4*5.0/6.0,0,0);
+			glRotatef(right_arm_angle1,0,0,1);
 			glRotatef(right_arm_angle,1,0,0);
+			glRotatef(right_arm_angle2,0,1,0);
 			glCallList(upper_arm);
 			glPushMatrix();
 				glTranslatef(0,-1.55,0);
@@ -121,6 +141,8 @@ void DrawRobot(void)
 				glPushMatrix();
 					glTranslatef(0,-1.55,0);
 					glRotatef(right_wrist_angle,0,1,0);
+					glRotatef(right_wrist_angle1,0,0,1);
+					glRotatef(right_wrist_angle2,1,0,1);
 					glCallList(hand);
 					glPushMatrix();
 						glRotatef(right_d_leg_angle,0,0,1);
@@ -133,8 +155,10 @@ void DrawRobot(void)
 		/*------------------LEFT ARM, FOREARM & HAND---------*/
 		glPushMatrix();
 			glTranslatef(1.4*5.0/6.0,0,0);
+			glRotatef(left_arm_angle1,0,0,1);
 			glScalef(-1,1,1);
 			glRotatef(left_arm_angle,1,0,0);
+			glRotatef(left_arm_angle2,0,1,0);
 			glCallList(upper_arm);
 			glPushMatrix();
 				glTranslatef(0,-1.55,0);
@@ -143,6 +167,8 @@ void DrawRobot(void)
 				glPushMatrix();
 					glTranslatef(0,-1.55,0);
 					glRotatef(left_wrist_angle,0,1,0);
+					glRotatef(left_wrist_angle1,0,0,1);
+					glRotatef(left_wrist_angle2,1,0,0);
 					glCallList(hand);
 					glPushMatrix();
 						glRotatef(left_d_leg_angle,0,0,1);
@@ -155,7 +181,9 @@ void DrawRobot(void)
 		/*--------------------RIGHT THIGH & LEG----------*/
 		glPushMatrix();
 			glTranslatef(-0.3,-1.6,0.1);
+			glRotatef(right_thigh_angle1,0,0,1);
 			glRotatef(right_thigh_angle,1.0,0.0,0.0);
+			glRotatef(right_thigh_angle2,0,1,0);
 			glCallList(thigh);
 			glPushMatrix();
 				glTranslatef(0,-1.7,0);
@@ -171,8 +199,10 @@ void DrawRobot(void)
 		/*--------------------LEFT THIGH & LEG--------*/
 		glPushMatrix();
 			glTranslatef(0.3,-1.6,0.1);
+			glRotatef(left_thigh_angle1,0,0,1);
 			glScalef(-1,1,1);
 			glRotatef(left_thigh_angle,1.0,0.0,0.0);
+			glRotatef(left_thigh_angle2,0,1,0);
 			glCallList(thigh);
 			glPushMatrix();
 				glTranslatef(0,-1.7,0);
@@ -200,4 +230,117 @@ void render_drawing(GLFWwindow* window)
 		glTranslatef(0,1,0);
 		DrawRobot();
 	glPopMatrix();
+}
+
+void transform_dino(GLFWwindow* window)
+{
+	bust_angle_y=0.0f;
+	bust_angle_x=0.0f;
+	armor_angle=0.0f;
+	head_pop=0.0f;
+	head_angle=0.0f;
+	head_angle1=0.0f;
+	head_angle2=0.0f;
+	right_arm_angle=0.0f;
+	left_arm_angle=0.0f;
+	right_arm_angle1=0.0f;
+	left_arm_angle1=0.0f;
+	right_arm_angle2=0.0f;
+	left_arm_angle2=0.0f;
+	right_forearm_angle=0.0f;
+	left_forearm_angle=0.0f;
+	left_thigh_angle=0.0f;
+	right_thigh_angle=0.0f;
+	left_thigh_angle1=0.0f;
+	right_thigh_angle1=0.0f;
+	left_thigh_angle2=0.0f;
+	right_thigh_angle2=0.0f;
+	right_leg_angle=0.0f;
+	left_leg_angle=0.0f;
+	right_foot_angle=90.0f;
+	left_foot_angle=90.0f;
+	right_wrist_angle=0.0f;
+	left_wrist_angle=0.0f;
+	right_wrist_angle1=0.0f;
+	left_wrist_angle1=0.0f;
+	right_wrist_angle2=0.0f;
+	left_wrist_angle2=0.0f;
+	right_d_leg_angle=0.0f;
+	left_d_leg_angle=0.0f;
+	render_drawing(window);
+	glfwSwapBuffers(window);
+	bool flag=true;
+	while(flag)
+	{
+		flag=false;
+		if(armor_angle>135){armor_angle-=3;flag=true;}
+		if(armor_angle<135){armor_angle+=3;flag=true;}
+		if(head_pop>=0&&head_pop<180){head_pop+=3;flag=true;}
+		if(head_pop<0&&head_pop>-180){head_pop-=3;flag=true;}
+		if(right_arm_angle<270){right_arm_angle+=3;flag=true;}
+		if(right_arm_angle>270){right_arm_angle-=3;flag=true;}
+		if(right_forearm_angle<-15){right_forearm_angle+=3;flag=true;}
+		if(right_forearm_angle>-15){right_forearm_angle-=3;flag=true;}
+		if(left_arm_angle<270){left_arm_angle+=3;flag=true;}
+		if(left_arm_angle>270){left_arm_angle-=3;flag=true;}
+		if(left_forearm_angle<-15){left_forearm_angle+=3;flag=true;}
+		if(left_forearm_angle>-15){left_forearm_angle-=3;flag=true;}
+		if(left_thigh_angle>-159){left_thigh_angle-=3;flag=true;}
+		if(right_thigh_angle>-159){right_thigh_angle-=3;flag=true;}
+		if(left_leg_angle<-3){left_leg_angle+=3;flag=true;}
+		if(left_leg_angle>-3){left_leg_angle-=3;flag=true;}
+		if(right_leg_angle<-3){right_leg_angle+=3;flag=true;}
+		if(right_leg_angle>-3){right_leg_angle-=3;flag=true;}
+		if(right_wrist_angle<90){right_wrist_angle+=3;flag=true;}
+		if(right_wrist_angle>90){right_wrist_angle-=3;flag=true;}
+		if(left_wrist_angle<90){left_wrist_angle+=3;flag=true;}
+		if(left_wrist_angle>90){left_wrist_angle-=3;flag=true;}
+		if(right_d_leg_angle<222){right_d_leg_angle+=3;flag=true;}
+		if(right_d_leg_angle>222){right_d_leg_angle-=3;flag=true;}
+		if(left_d_leg_angle<222){left_d_leg_angle+=3;flag=true;}
+		if(left_d_leg_angle>222){left_d_leg_angle-=3;flag=true;}
+		if(right_foot_angle>0){right_foot_angle-=3;flag=true;}
+		if(left_foot_angle>0){left_foot_angle-=3;flag=true;}
+		render_drawing(window);
+		glfwSwapBuffers(window);
+	}
+}
+
+void transform_robot(GLFWwindow* window)
+{
+	bust_angle_y=0.0f;
+	bust_angle_x=0.0f;
+	armor_angle=0.0f;
+	head_pop=0.0f;
+	head_angle=0.0f;
+	head_angle1=0.0f;
+	head_angle2=0.0f;
+	right_arm_angle=0.0f;
+	left_arm_angle=0.0f;
+	right_arm_angle1=0.0f;
+	left_arm_angle1=0.0f;
+	right_arm_angle2=0.0f;
+	left_arm_angle2=0.0f;
+	right_forearm_angle=0.0f;
+	left_forearm_angle=0.0f;
+	left_thigh_angle=0.0f;
+	right_thigh_angle=0.0f;
+	left_thigh_angle1=0.0f;
+	right_thigh_angle1=0.0f;
+	left_thigh_angle2=0.0f;
+	right_thigh_angle2=0.0f;
+	right_leg_angle=0.0f;
+	left_leg_angle=0.0f;
+	right_foot_angle=90.0f;
+	left_foot_angle=90.0f;
+	right_wrist_angle=0.0f;
+	left_wrist_angle=0.0f;
+	right_wrist_angle1=0.0f;
+	left_wrist_angle1=0.0f;
+	right_wrist_angle2=0.0f;
+	left_wrist_angle2=0.0f;
+	right_d_leg_angle=0.0f;
+	left_d_leg_angle=0.0f;
+	render_drawing(window);
+	glfwSwapBuffers(window);
 }
