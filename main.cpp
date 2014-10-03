@@ -18,7 +18,7 @@ int main (int argc, char *argv[])
 		return -1;
 	
 	int win_width=640;
-	int win_height=480;
+	int win_height=640;
 	
 	//! Create a windowed mode window and its OpenGL context
 	window = glfwCreateWindow(win_width, win_height, "Transformers", NULL, NULL);

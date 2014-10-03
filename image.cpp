@@ -1,6 +1,5 @@
 #include <stdlib.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include "gl_framework.hpp"
 #include <stdio.h>
 #include "image.hpp"
 
@@ -8,7 +7,7 @@ int ImageLoad(char *filename, Image *image) {
     FILE *file;
     unsigned long size;                 // size of the image in bytes.
     unsigned long i;                    // standard counter.
-    unsigned short int planes;          // number of planes in image (must be 1) 
+    unsigned short int planes;          // number of planes in image (must be 1)
     unsigned short int bpp;             // number of bits per pixel (must be 24)
     char temp;                          // temporary color storage for bgr-rgb conversion.
 
@@ -18,7 +17,7 @@ int ImageLoad(char *filename, Image *image) {
 	printf("File Not Found : %s\n",filename);
 	return 0;
     }
-    
+
     // seek through the bmp header, up to the width/height:
     fseek(file, 18, SEEK_CUR);
 
@@ -28,7 +27,7 @@ int ImageLoad(char *filename, Image *image) {
 	return 0;
     }
     //~ printf("Width of %s: %lu\n", filename, image->sizeX);
-    
+
     // read the height 
     if ((i = fread(&image->sizeY, 4, 1, file)) != 1) {
 	printf("Error reading height from %s.\n", filename);

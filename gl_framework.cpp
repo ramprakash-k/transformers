@@ -13,7 +13,6 @@ int win_height;
 void initGL(void)
 {
 	LoadGLTextures("armor.bmp",armort);
-	//~ glEnable(GL_TEXTURE_2D);
     glShadeModel(GL_SMOOTH);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	glClearDepth(1.0f);
@@ -22,8 +21,6 @@ void initGL(void)
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glFrontFace(GL_CCW);
 	glPolygonMode(GL_FRONT,GL_FILL);
-	//~ glEnable(GL_CULL_FACE);
-	//~ glCullFace(GL_BACK);
 	init_structures();
 }
 
@@ -64,6 +61,16 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			head_pop+=3;
 			if(head_pop>360)head_pop=0;
 		}
+		if (key == GLFW_KEY_D)
+		{
+			armor_angle+=angle_step;
+			if(armor_angle>180.0f)armor_angle=180.0f;
+		}
+		if (key == GLFW_KEY_F)
+		{
+			armor_angle-=angle_step;
+			if(armor_angle<0.0f)armor_angle=0.0f;
+		}
 		if (key == GLFW_KEY_LEFT)
 			bust_angle_y-=angle_step;
 		if (key == GLFW_KEY_RIGHT)
@@ -87,15 +94,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			if (right_forearm_angle>100.0f) right_forearm_angle=100.0f;
 		}
 		if (key == GLFW_KEY_3)
-			left_arm_angle+=angle_step;
-		if (key == GLFW_KEY_E)
 			left_arm_angle-=angle_step;
-		if (key == GLFW_KEY_4)
+		if (key == GLFW_KEY_E)
+			left_arm_angle+=angle_step;
+		if (key == GLFW_KEY_R)
 		{
 			left_forearm_angle+=angle_step;
 			if (left_forearm_angle>100.0f) left_forearm_angle=100.0f;
 		}
-		if (key == GLFW_KEY_R)
+		if (key == GLFW_KEY_4)
 		{
 			left_forearm_angle-=angle_step;
 			if (left_forearm_angle<-100.0f) left_forearm_angle=-100.0f;
@@ -103,7 +110,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		if (key == GLFW_KEY_5)
 		{
 			left_thigh_angle-=angle_step;
-			if (left_thigh_angle<-150.0f) left_thigh_angle=-150.0f;
+			if (left_thigh_angle<-160.0f) left_thigh_angle=-160.0f;
 		}
 		if (key == GLFW_KEY_T)
 		{
@@ -123,7 +130,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		if (key == GLFW_KEY_7)
 		{
 			right_thigh_angle-=angle_step;
-			if (right_thigh_angle<-150.0f) right_thigh_angle=-150.0f;
+			if (right_thigh_angle<-160.0f) right_thigh_angle=-160.0f;
 		}
 		if (key == GLFW_KEY_U)
 		{
@@ -140,9 +147,37 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			right_leg_angle-=angle_step;
 			if (right_leg_angle<-100.0f) right_leg_angle=-100.0f;
 		}
+		if (key == GLFW_KEY_9)
+			right_wrist_angle-=angle_step;
+		if (key == GLFW_KEY_O)
+			right_wrist_angle+=angle_step;
+		if (key == GLFW_KEY_0)
+			left_wrist_angle-=angle_step;
+		if (key == GLFW_KEY_P)
+			left_wrist_angle+=angle_step;
+		if (key == GLFW_KEY_A)
+		{
+			right_d_leg_angle+=angle_step;
+			if(right_d_leg_angle>240.0f)right_d_leg_angle=240.0f;
+		}
 		if (key == GLFW_KEY_Z)
-			lightturn+=5 % 360;
+		{
+			right_d_leg_angle-=angle_step;
+			if(right_d_leg_angle<0.0f)right_d_leg_angle=0.0f;
+		}
+		if (key == GLFW_KEY_S)
+		{
+			left_d_leg_angle+=angle_step;
+			if(left_d_leg_angle>240.0f)left_d_leg_angle=240.0f;
+		}
 		if (key == GLFW_KEY_X)
+		{
+			left_d_leg_angle-=angle_step;
+			if(left_d_leg_angle<0.0f)left_d_leg_angle=0.0f;
+		}
+		if (key == GLFW_KEY_C)
+			lightturn+=5 % 360;
+		if (key == GLFW_KEY_V)
 			lightturn1+=5 % 360;
 		if (key == GLFW_KEY_N)
 		{

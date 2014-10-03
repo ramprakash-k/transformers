@@ -4,7 +4,6 @@
 #define torso			1
 #define armor			101
 #define shoulder_left	102
-#define back			103
 #define neck			2
 #define upper_arm		3
 #define thigh			4
