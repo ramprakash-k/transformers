@@ -59,7 +59,7 @@ void DrawRobot(void)
 	glPushMatrix();
 		glRotatef(bust_angle_y,0,1,0);
 		glRotatef(bust_angle_x,1,0,0);
-		/*----------------TORSO, NECK & HEAD-------------*/
+		/*----------------TORSO, BACK, & ARMOR-----------------*/
 		glCallList(torso);
 		glPushMatrix();
 			glTranslatef(0,-0.5,-0.6);
@@ -68,6 +68,21 @@ void DrawRobot(void)
 			glPushMatrix();
 				glRotatef((180-((head_pop<0)?-head_pop:head_pop))/2,0,0,1);
 				glCallList(d_bar);
+				glPushMatrix();
+					glTranslatef(0,0.26,0.8);
+					glRotatef((180-((head_pop<0)?-head_pop:head_pop))*7/18,-1,0,0);
+					glCallList(d_head);
+				glPopMatrix();
+			glPopMatrix();
+			glScalef(-1,1,1);
+			glPushMatrix();
+				glRotatef((180-((head_pop<0)?-head_pop:head_pop))/2,0,0,1);
+				glCallList(d_bar);
+				glPushMatrix();
+					glTranslatef(0,0.26,0.8);
+					glRotatef((180-((head_pop<0)?-head_pop:head_pop))*7/18,-1,0,0);
+					glCallList(d_head);
+				glPopMatrix();
 			glPopMatrix();
 		glPopMatrix();
 		glPushMatrix();
@@ -75,6 +90,7 @@ void DrawRobot(void)
 			glTranslatef(0,0,0.2);
 			glCallList(armor);
 		glPopMatrix();
+		/*-----------------------NECK & HEAD-------------------*/
 		glPushMatrix();
 			glRotatef(head_pop,0,0,1);
 			glCallList(neck);
@@ -94,7 +110,7 @@ void DrawRobot(void)
 		glPopMatrix();
 		/*-------------------RIGHT ARM, FOREARM & HAND----------*/
 		glPushMatrix();
-			glTranslatef(-1.4,0,0);
+			glTranslatef(-1.4*5.0/6.0,0,0);
 			glRotatef(right_arm_angle,1,0,0);
 			glCallList(upper_arm);
 			glPushMatrix();
@@ -115,7 +131,7 @@ void DrawRobot(void)
 		glPopMatrix();
 		/*------------------LEFT ARM, FOREARM & HAND---------*/
 		glPushMatrix();
-			glTranslatef(1.4,0,0);
+			glTranslatef(1.4*5.0/6.0,0,0);
 			glScalef(-1,1,1);
 			glRotatef(left_arm_angle,1,0,0);
 			glCallList(upper_arm);
