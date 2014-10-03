@@ -28,14 +28,14 @@ void drawHemisphere(float radius, int longSlices, int latSlices,int p,int q,int 
       glBegin(GL_TRIANGLE_STRIP);
       for(i = 0; i <= p; i++)
       {
-		 glTexCoord2f((float)i*1.0/p, (float)(j+1)*1.0/(q+1));
+		 glTexCoord2f((float)i*1.0/p, (float)(j+1)*1.0/q);
 		 glNormal3f( in * radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i)/longSlices * PI ),
                      in * radius * sin( (float)(j+1)/latSlices * PI/2.0 ),
 					 in * radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i)/longSlices * PI ) );
          glVertex3f( radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i)/longSlices * PI ),
                      radius * sin( (float)(j+1)/latSlices * PI/2.0 ),
 					 radius * cos( (float)(j+1)/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i)/longSlices * PI ) );
-		 glTexCoord2f((float)i*1.0/p, (float)j*1.0/(q+1));
+		 glTexCoord2f((float)i*1.0/p, (float)j*1.0/q);
 		 glNormal3f( in * radius * cos( (float)j/latSlices * PI/2.0 ) * cos( 2.0 * ((float)i)/longSlices * PI ),
                      in * radius * sin( (float)j/latSlices * PI/2.0 ),
 					 in * radius * cos( (float)j/latSlices * PI/2.0 ) * sin( 2.0 * ((float)i)/longSlices * PI ) );
@@ -57,15 +57,17 @@ void drawCylinder(float br,float tr, float h,int lon,int lat,int p,int q)
       glBegin(GL_TRIANGLE_STRIP);
       for(i = 0; i <= p; i++)
       {
-		 glNormal3f( (br + (j+1)*(tr-br)/lat) * cos( 2.0 * ((float)i)/lon * PI ),
-                     (j+1)*h/lat,
-					 (br + (j+1)*(tr-br)/lat) * sin( 2.0 * ((float)i)/lon * PI ) );
+		 glTexCoord2f((float)i*1.0/p, (float)(j+1)*1.0/q);
+		 glNormal3f( cos( 2.0 * ((float)i)/lon * PI ),
+                     h/(tr-br),
+					 sin( 2.0 * ((float)i)/lon * PI ) );
          glVertex3f( (br + (j+1)*(tr-br)/lat) * cos( 2.0 * ((float)i)/lon * PI ),
                      (j+1)*h/lat,
 					 (br + (j+1)*(tr-br)/lat) * sin( 2.0 * ((float)i)/lon * PI ) );
-		 glNormal3f( (br + j*(tr-br)/lat) * cos( 2.0 * ((float)i)/lon * PI ),
-                     j*h/lat,
-					 (br + j*(tr-br)/lat) * sin( 2.0 * ((float)i)/lon * PI ) );
+		 glTexCoord2f((float)i*1.0/p, (float)j*1.0/q);
+		 glNormal3f( cos( 2.0 * ((float)i)/lon * PI ),
+                     h/(tr-br),
+					 sin( 2.0 * ((float)i)/lon * PI ) );
          glVertex3f( (br + j*(tr-br)/lat) * cos( 2.0 * ((float)i)/lon * PI ),
                      j*h/lat,
 					 (br + j*(tr-br)/lat) * sin( 2.0 * ((float)i)/lon * PI ) );
@@ -222,21 +224,21 @@ void struct_torso(void)
 		drawCylinder(1.08,0.2,1.6,20,5,10,5);
 	glPopMatrix();
 	glPushMatrix();
-		glTranslatef(0,-1.2,-0.13);
-		glRotatef(-135,1,0,0);
+		glTranslatef(0,-0.9,-0.13);
+		glRotatef(-150,1,0,0);
 		glRotatef(180,0,1,0);
-		drawCylinder(0.3,0.3,0.4,20,5,10,5);
+		drawCylinder(0.3,0.3,0.8,20,5,10,5);
 		glBegin(GL_QUADS);
 			glNormal3f(0,0,-1);
 			glVertex3f(0.3,0,0);
-			glVertex3f(0.3,0.2,0);
-			glVertex3f(-0.3,0.2,0);
+			glVertex3f(0.3,0.45,0);
+			glVertex3f(-0.3,0.45,0);
 			glVertex3f(-0.3,0,0);
 		glEnd();
 	glPopMatrix();
 	glPushMatrix();
 		SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
-		glTranslatef(0,-1.4,-0.42);
+		glTranslatef(0,-1.4,-0.6);
 		glScalef(0.6,1.2,0.5);
 		glRotatef(80,1,0,0);
 		drawHemisphere(0.6,20,7,10,7,1);
@@ -271,7 +273,26 @@ void struct_torso(void)
 
 void struct_dino_head(void)
 {
+		// Dino Head
+	glNewList(d_head,GL_COMPILE);
 	
+	glEndList();
+	
+		// Head joining Bar
+	glNewList(d_bar,GL_COMPILE);
+		SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
+		glColor3ub(64,64,64);
+		drawCube(1);
+	glEndList();
+	
+		// Head Joint
+	glNewList(d_joint,GL_COMPILE);
+		SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
+		glColor3ub(64,64,64);
+		GLUquadric* quad=gluNewQuadric();
+		glRotatef(120,1,0,0);
+		gluCylinder(quad,0.06,0.06,1,10,5);
+	glEndList();
 }
 
 void struct_neck(void)
@@ -298,19 +319,20 @@ void struct_neck(void)
 void struct_head(void)
 {
 		// Head
+	GLUquadric* quad=gluNewQuadric();
 	glNewList(head,GL_COMPILE);
 	glPushMatrix();
 		SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
 		glColor3ub(255,255,255);
 		glScalef(1.5,1.5,1.5);
 		glPushMatrix();
+			glRotatef(-90,1,0,0);
+			gluCylinder(quad,0.2,0.1,0.2,10,5);
 			//~ SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
 			//~ glColor3ub(255,255,255);
 			//~ glEnable(GL_TEXTURE_2D);
-			//~ glBindTexture(GL_TEXTURE_2D,armort[0]);
-			glRotatef(-90,1,0,0);
-			GLUquadric* quad=gluNewQuadric();
-			gluCylinder(quad,0.2,0.1,0.2,10,5);
+			//~ glBindTexture(GL_TEXTURE_2D,headt[0]);
+			//~ drawCylinder(0.2,0.1,0.2,10,5,10,5);
 			//~ glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
 		glPushMatrix();

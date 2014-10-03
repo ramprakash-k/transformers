@@ -3,7 +3,9 @@
 
 #define torso			1
 #define armor			101
-#define shoulder_left	102
+#define d_head			102
+#define d_joint			103
+#define d_bar			104
 #define neck			2
 #define upper_arm		3
 #define thigh			4

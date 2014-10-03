@@ -27,7 +27,7 @@ float lightturn=0.0f,lightturn1=0.0f;
 float cam_x=0.0f,cam_z=-0.0f,cam_ay=0.0f;
 
 GLuint armort[1];
-//~ GLuint headt[1];
+GLuint headt[1];
 
 void lights(void)
 {
@@ -70,9 +70,13 @@ void DrawRobot(void)
 			glPushMatrix();
 				glTranslatef(0,0.1,0);
 				glCallList(head);
-				glScalef(1.5,1.5,1.5);
-				glTranslatef(0,0.18,0.07);
-				glRotatef(-30,1,0,0);
+				float fac=1.0;
+				if(head_pop<90)fac=(90.0-1.0*head_pop)/90.0;
+				else if(head_pop>270)fac=(1.0*head_pop-270.0)/90.0;
+				else fac=0.0;
+				glScalef(1.0+fac/2,1.0+fac/2,1.0+fac/2);
+				glTranslatef(0,fac*0.18,fac*0.07);
+				glRotatef(fac*30,-1,0,0);
 				glCallList(head_horn);
 			glPopMatrix();
 		glPopMatrix();
