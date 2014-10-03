@@ -59,14 +59,14 @@ void drawCylinder(float br,float tr, float h,int lon,int lat,int p,int q)
       {
 		 glTexCoord2f((float)i*1.0/p, (float)(j+1)*1.0/q);
 		 glNormal3f( cos( 2.0 * ((float)i)/lon * PI ),
-                     h/(tr-br),
+                     (tr-br)/h,
 					 sin( 2.0 * ((float)i)/lon * PI ) );
          glVertex3f( (br + (j+1)*(tr-br)/lat) * cos( 2.0 * ((float)i)/lon * PI ),
                      (j+1)*h/lat,
 					 (br + (j+1)*(tr-br)/lat) * sin( 2.0 * ((float)i)/lon * PI ) );
 		 glTexCoord2f((float)i*1.0/p, (float)j*1.0/q);
 		 glNormal3f( cos( 2.0 * ((float)i)/lon * PI ),
-                     h/(tr-br),
+                     (tr-br)/h,
 					 sin( 2.0 * ((float)i)/lon * PI ) );
          glVertex3f( (br + j*(tr-br)/lat) * cos( 2.0 * ((float)i)/lon * PI ),
                      j*h/lat,
