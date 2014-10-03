@@ -13,6 +13,8 @@ extern float left_thigh_angle;
 extern float right_thigh_angle;
 extern float right_leg_angle;
 extern float left_leg_angle;
+extern float right_foot_angle;
+extern float left_foot_angle;
 extern float left_d_leg_angle;
 extern float right_wrist_angle;
 extern float left_wrist_angle;

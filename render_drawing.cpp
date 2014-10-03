@@ -19,6 +19,8 @@ float left_thigh_angle=0.0f;
 float right_thigh_angle=0.0f;
 float right_leg_angle=0.0f;
 float left_leg_angle=0.0f;
+float right_foot_angle=-90.0f;
+float left_foot_angle=-90.0f;
 float right_wrist_angle=0.0f;
 float left_wrist_angle=0.0f;
 float right_d_leg_angle=0.0f;
@@ -31,7 +33,7 @@ GLuint headt[1];
 
 void lights(void)
 {
-  GLfloat position[] =  {0.0, 0.0, 5.0, 1.0};
+  GLfloat position[] =  {0.0, 0.0, 10.0, 1.0};
   glRotatef(lightturn1, 1.0, 0.0, 0.0);
   glRotatef(lightturn, 0.0, 1.0, 0.0);
 
@@ -60,6 +62,15 @@ void DrawRobot(void)
 		/*----------------TORSO, NECK & HEAD-------------*/
 		glCallList(torso);
 		glPushMatrix();
+			glTranslatef(0,-0.5,-0.6);
+			glRotatef((180-((head_pop<0)?-head_pop:head_pop))*5/6,1,0,0);
+			glCallList(d_joint);
+			glPushMatrix();
+				glRotatef((180-((head_pop<0)?-head_pop:head_pop))/2,0,0,1);
+				glCallList(d_bar);
+			glPopMatrix();
+		glPopMatrix();
+		glPushMatrix();
 			glRotatef(-armor_angle,1,0,0);
 			glTranslatef(0,0,0.2);
 			glCallList(armor);
@@ -71,8 +82,9 @@ void DrawRobot(void)
 				glTranslatef(0,0.1,0);
 				glCallList(head);
 				float fac=1.0;
-				if(head_pop<90)fac=(90.0-1.0*head_pop)/90.0;
-				else if(head_pop>270)fac=(1.0*head_pop-270.0)/90.0;
+				if(head_pop<-90)fac=0;
+				else if(head_pop<=0)fac=(1.0*head_pop+90.0)/90.0;
+				else if(head_pop<90)fac=(90.0-1.0*head_pop)/90.0;
 				else fac=0.0;
 				glScalef(1.0+fac/2,1.0+fac/2,1.0+fac/2);
 				glTranslatef(0,fac*0.18,fac*0.07);
@@ -134,6 +146,7 @@ void DrawRobot(void)
 				glCallList(leg);
 				glPushMatrix();
 					glTranslatef(0,-1.55,0);
+					glRotatef(right_foot_angle,1,0,0);
 					glCallList(foot);
 				glPopMatrix();
 			glPopMatrix();
@@ -150,6 +163,7 @@ void DrawRobot(void)
 				glCallList(leg);
 				glPushMatrix();
 					glTranslatef(0,-1.55,0);
+					glRotatef(left_foot_angle,1,0,0);
 					glCallList(foot);
 				glPopMatrix();
 			glPopMatrix();

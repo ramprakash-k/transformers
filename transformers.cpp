@@ -237,6 +237,12 @@ void struct_torso(void)
 		glEnd();
 	glPopMatrix();
 	glPushMatrix();
+		SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
+		glColor3ub(64,64,64);
+		glTranslatef(0,-0.5,-0.6);
+		gluCylinder(quad,0.06,0.06,0.6,10,5);
+	glPopMatrix();
+	glPushMatrix();
 		SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
 		glTranslatef(0,-1.4,-0.6);
 		glScalef(0.6,1.2,0.5);
@@ -282,6 +288,9 @@ void struct_dino_head(void)
 	glNewList(d_bar,GL_COMPILE);
 		SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
 		glColor3ub(64,64,64);
+		glTranslatef(0,0.06,0.2);
+		glScalef(0.2,0.2,0.5);
+		glTranslatef(-0.5,0.5,0.5);
 		drawCube(1);
 	glEndList();
 	
@@ -291,7 +300,7 @@ void struct_dino_head(void)
 		glColor3ub(64,64,64);
 		GLUquadric* quad=gluNewQuadric();
 		glRotatef(120,1,0,0);
-		gluCylinder(quad,0.06,0.06,1,10,5);
+		gluCylinder(quad,0.06,0.06,0.7,10,5);
 	glEndList();
 }
 
@@ -493,7 +502,7 @@ void struct_leg(void)
 		gluDisk(quad,0,0.2,10,10);
 	glPopMatrix();
 	glPushMatrix();
-		drawCylinder(0.25,0.25,-0.8,30,30,30,30);
+		drawCylinder(0.25,0.25,-1,30,30,30,30);
 		drawCylinder(0.25,0.25,-1.3,30,30,15,30);
 		glTranslatef(0,-1.3,0);
 		drawCylinder(0.25,0.25,-0.2,20,20,2,25);
@@ -510,14 +519,24 @@ void struct_foot(void)
 	SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
 	glColor3ub(64,64,64);
 	glPushMatrix();
-		drawHemisphere(0.25,10,5,10,5,1);
+		glRotatef(90,1,0,0);
+		drawHemisphere(0.25,20,20,20,20,1);
+	glPopMatrix();
+	glPushMatrix();
+		drawCylinder(0.2,0.15,0.4,20,20,10,20);
 		glPushMatrix();
-			glRotatef(90,1,0,0);
-			glScalef(0.4,1,1);
-			gluDisk(quad,0,0.625,20,5);
+			glTranslatef(0,0.4,0);
+			drawCylinder(0.15,0,0,20,20,10,20);
 		glPopMatrix();
-		glScalef(1,0.3,2.5);
-		drawHemisphere(0.25,20,5,20,5,1);
+		glScalef(1,-1,1);
+		drawCylinder(0.2,0.15,0.4,20,20,10,20);
+		glPushMatrix();
+			glTranslatef(0,0.4,0);
+			drawCylinder(0.15,0,0.2,20,20,10,20);
+			glTranslatef(0,0.1,0.05);
+			glRotatef(70,1,0,0);
+			drawCylinder(0.05,0,0.1,20,20,20,20);
+		glPopMatrix();
 	glPopMatrix();
 	glEndList();
 }

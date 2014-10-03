@@ -60,7 +60,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		if (key == GLFW_KEY_H)
 		{
 			head_pop+=3;
-			if(head_pop>360)head_pop=0;
+			if(head_pop>180)head_pop=-180;
 		}
 		if (key == GLFW_KEY_D)
 		{
