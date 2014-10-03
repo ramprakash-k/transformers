@@ -176,9 +176,29 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			left_d_leg_angle-=angle_step;
 			if(left_d_leg_angle<0.0f)left_d_leg_angle=0.0f;
 		}
-		if (key == GLFW_KEY_C)
+		if (key == GLFW_KEY_J)
+		{
+			right_foot_angle+=angle_step;
+			if(right_foot_angle>100.0f)right_foot_angle=100.0f;
+		}
+		if (key == GLFW_KEY_K)
+		{
+			right_foot_angle-=angle_step;
+			if(right_foot_angle<0.0f)right_foot_angle=0.0f;
+		}
+		if (key == GLFW_KEY_L)
+		{
+			left_foot_angle+=angle_step;
+			if(left_foot_angle>100.0f)left_foot_angle=100.0f;
+		}
+		if (key == GLFW_KEY_SEMICOLON)
+		{
+			left_foot_angle-=angle_step;
+			if(left_foot_angle<0.0f)left_foot_angle=0.0f;
+		}
+		if (key == GLFW_KEY_G)
 			lightturn+=5 % 360;
-		if (key == GLFW_KEY_V)
+		if (key == GLFW_KEY_C)
 			lightturn1+=5 % 360;
 		if (key == GLFW_KEY_N)
 		{

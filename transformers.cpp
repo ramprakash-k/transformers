@@ -265,8 +265,8 @@ void struct_torso(void)
 			}
 		glEnd();
 		float h[20]={0.24,0.26,0.24,0.22,0.2,0.18,0.2,0.35,0.2,0.15,0.15,0.2,0.35,0.2,0.18,0.2,0.22,0.24,0.26,0.24};
-		float s=(PI-19.0/9.0)/2.0;
-		for(int i=0;i<20;i++,s+=1.0/9.0)
+		float s=(PI-19.0/7.0)/2.0;
+		for(int i=0;i<20;i++,s+=1.0/7.0)
 		{
 			glPushMatrix();
 				glTranslatef(0.55*cos(s),0,0.55*sin(s));
@@ -282,6 +282,7 @@ void struct_dino_head(void)
 {
 		// Dino Head
 	float PI=3.14159265358979324;
+	GLUquadric* quad=gluNewQuadric();
 	glNewList(d_head,GL_COMPILE);
 	glPushMatrix();
 		SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
@@ -310,6 +311,19 @@ void struct_dino_head(void)
 			for(float i=0.0f;i<=5.0f;i+=1.0f)
 				glVertex3f(0.6f*cos(PI*i/10.0f),0.6f*sin(PI*i/10.0f),0);
 		glEnd();
+		float h[10]={0.2,0.19,0.18,0.17,0.18,0.19,0.2,0.35,0.2,0.15};
+		float s=(PI-19.0/7.0)/2.0;
+		for(int i=0;i<10;i++,s+=1.0/7.0)
+		{
+			glPushMatrix();
+				glTranslatef(0.55*cos(s),0,0.55*sin(s));
+				glRotatef(90,1,0,0);
+				gluCylinder(quad,0.05,0,h[i],10,2);
+			glPopMatrix();
+		}
+		glTranslatef(0.2,0.47,0.2);
+		glRotatef(90,-1,0,0);
+		gluCylinder(quad,0.05,0,0.4,10,2);
 	glPopMatrix();
 	glEndList();
 	
@@ -329,7 +343,6 @@ void struct_dino_head(void)
 	glNewList(d_joint,GL_COMPILE);
 		SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
 		glColor3ub(64,64,64);
-		GLUquadric* quad=gluNewQuadric();
 		glRotatef(120,1,0,0);
 		gluCylinder(quad,0.06,0.06,0.8,10,5);
 	glEndList();
@@ -485,8 +498,39 @@ void struct_thigh(void)
 	glColor3ub(64,64,64);
 	glPushMatrix();
 		gluSphere(quad,0.2,20,20);
+		SetMaterial(mat_specularORANGE, mat_ambientORANGE, mat_diffuseORANGE, mat_shininessORANGE);
+		glColor3f(1.0,0.5,0.0);
+		glRotatef(-180,0,1,0);
+		drawHemisphere(0.25,20,20,5,20,1);
+		drawCylinder(0.25,0.25,-1,20,20,5,20);
+		glPushMatrix();
+			glTranslatef(0,0,0.25);
+			glBegin(GL_QUADS);
+				glNormal3f(1,0,3);
+				glVertex3f(0,0,0);
+				glVertex3f(-0.3,0,0.1);
+				glVertex3f(-0.3,-1,0.1);
+				glVertex3f(0,-1,0);
+			glEnd();
+		glPopMatrix();
+		glTranslatef(0.25,0,0);
+		gluSphere(quad,0.1,20,20);
+		gluCylinder(quad,0.1,0.05,0.4,20,20);
+		glTranslatef(0,0,0.4);
+		gluSphere(quad,0.05,20,20);
+		glPushMatrix();
+			glRotatef(20,0,1,0);
+			gluCylinder(quad,0.05,0,0.3,20,20);
+		glPopMatrix();
+		gluCylinder(quad,0.05,0,0.3,20,20);
+		glPushMatrix();
+			glRotatef(-20,0,1,0);
+			gluCylinder(quad,0.05,0,0.3,20,20);
+		glPopMatrix();
 	glPopMatrix();
 	glPushMatrix();
+		SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
+		glColor3ub(64,64,64);
 		glRotatef(90,1,0,0);
 		gluCylinder(quad,0.2,0.25,1.5,20,5);
 		glTranslatef(0,0,1.5);
@@ -509,6 +553,7 @@ void struct_thigh(void)
 
 void struct_leg(void)
 {
+		// Leg
 	GLUquadric* quad=gluNewQuadric();
 	glNewList(leg,GL_COMPILE);
 	SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
@@ -548,6 +593,7 @@ void struct_leg(void)
 
 void struct_foot(void)
 {
+		// Foot
 	float PI=3.14159265358979324;
 	GLUquadric* quad=gluNewQuadric();
 	glNewList(foot,GL_COMPILE);
@@ -607,6 +653,7 @@ void struct_foot(void)
 
 void struct_hand(void)
 {
+		// Hand
 	glNewList(hand,GL_COMPILE);
 	SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
 	glColor3ub(64,64,64);
@@ -627,6 +674,7 @@ void struct_hand(void)
 
 void struct_dino_leg(void)
 {
+		// Dino Leg
 	GLUquadric* quad=gluNewQuadric();
 	glNewList(d_leg,GL_COMPILE);
 	SetMaterial(mat_specularORANGE, mat_ambientORANGE, mat_diffuseORANGE, mat_shininessORANGE);

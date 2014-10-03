@@ -19,8 +19,8 @@ float left_thigh_angle=0.0f;
 float right_thigh_angle=0.0f;
 float right_leg_angle=0.0f;
 float left_leg_angle=0.0f;
-float right_foot_angle=-90.0f;
-float left_foot_angle=-90.0f;
+float right_foot_angle=90.0f;
+float left_foot_angle=90.0f;
 float right_wrist_angle=0.0f;
 float left_wrist_angle=0.0f;
 float right_d_leg_angle=0.0f;
@@ -33,7 +33,7 @@ GLuint headt[1];
 
 void lights(void)
 {
-  GLfloat position[] =  {0.0, 0.0, 10.0, 1.0};
+  GLfloat position[] =  {0.0, 0.0, 5.0, 1.0};
   glRotatef(lightturn1, 1.0, 0.0, 0.0);
   glRotatef(lightturn, 0.0, 1.0, 0.0);
 
@@ -162,7 +162,7 @@ void DrawRobot(void)
 				glCallList(leg);
 				glPushMatrix();
 					glTranslatef(0,-1.55,0);
-					glRotatef(right_foot_angle,1,0,0);
+					glRotatef(right_foot_angle,-1,0,0);
 					glCallList(foot);
 				glPopMatrix();
 			glPopMatrix();
@@ -179,7 +179,7 @@ void DrawRobot(void)
 				glCallList(leg);
 				glPushMatrix();
 					glTranslatef(0,-1.55,0);
-					glRotatef(left_foot_angle,1,0,0);
+					glRotatef(left_foot_angle,-1,0,0);
 					glCallList(foot);
 				glPopMatrix();
 			glPopMatrix();
