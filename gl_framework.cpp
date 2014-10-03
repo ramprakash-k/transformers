@@ -14,6 +14,7 @@ void initGL(void)
 {
 	LoadGLTextures("armor.bmp",armort);
 	LoadGLTextures("head.bmp",headt);
+	LoadGLTextures("dino.bmp",dinot);
     glShadeModel(GL_SMOOTH);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	glClearDepth(1.0f);

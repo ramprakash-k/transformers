@@ -290,7 +290,14 @@ void struct_dino_head(void)
 		glRotatef(20,-1,0,0);
 		glScalef(0.6,0.5,1.2);
 		glRotatef(180,0,0,1);
+		//~ SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
+		//~ glColor3ub(255,255,255);
+		//~ glEnable(GL_TEXTURE_2D);
+		//~ glBindTexture(GL_TEXTURE_2D,dinot[0]);
 		drawHemisphere(0.6,20,7,5,7,1);
+		//~ glDisable(GL_TEXTURE_2D);
+		//~ SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
+		//~ glColor3f(1.0,1.0,1.0);
 		drawHemisphere(0.5,20,7,5,7,-1);
 		glBegin(GL_TRIANGLE_STRIP);
 			glNormal3f(0,-1,0);

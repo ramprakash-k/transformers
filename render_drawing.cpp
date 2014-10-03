@@ -30,6 +30,7 @@ float cam_x=0.0f,cam_z=-0.0f,cam_ay=0.0f;
 
 GLuint armort[1];
 GLuint headt[1];
+GLuint dinot[1];
 
 void lights(void)
 {
