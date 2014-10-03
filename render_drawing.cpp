@@ -27,6 +27,7 @@ float lightturn=0.0f,lightturn1=0.0f;
 float cam_x=0.0f,cam_z=-0.0f,cam_ay=0.0f;
 
 GLuint armort[1];
+//~ GLuint headt[1];
 
 void lights(void)
 {
@@ -47,7 +48,7 @@ void lights(void)
   glColor3f(1,1,0);
   GLUquadric* quad=gluNewQuadric();
   gluQuadricDrawStyle(quad,GLU_LINE);
-  gluSphere(quad,0.05,4,2);
+  gluSphere(quad,0.02,4,2);
   glEnable(GL_LIGHTING);
 }
 
@@ -70,8 +71,8 @@ void DrawRobot(void)
 				glTranslatef(0,0.1,0);
 				glCallList(head);
 				glScalef(1.5,1.5,1.5);
-				//~ glTranslatef(0,0.18,0.07);
-				//~ glRotatef(-30,1,0,0);
+				glTranslatef(0,0.18,0.07);
+				glRotatef(-30,1,0,0);
 				glCallList(head_horn);
 			glPopMatrix();
 		glPopMatrix();

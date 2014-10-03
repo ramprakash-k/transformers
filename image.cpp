@@ -92,13 +92,13 @@ void LoadGLTextures(char *filename,GLuint *texture)
     // allocate space for texture
     image1 = (Image *) malloc(sizeof(Image));
     if (image1 == NULL) {
-	printf("Error allocating space for image");
-	return;
+	printf	("Error allocating space for image");
+	exit(1);
     }
 
     if (!ImageLoad(filename, image1)) {
 	printf("Failed to load");
-	return;
+	exit(0);
     }        
 
     // Create Texture	

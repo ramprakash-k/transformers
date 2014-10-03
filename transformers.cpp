@@ -166,17 +166,17 @@ void struct_torso(void)
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D,armort[0]);
 		glRotatef(180,0,0,1);
-		glScalef(1.9,1.5,0.75);
+		glScalef(1.9,1.7,0.75);
 		drawHemisphere(0.6,20,10,10,8,1);
 		glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
 	glPushMatrix();
 		SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
 		glColor3ub(64,64,64);
-		glTranslatef(0,-0.85,0);
+		glTranslatef(0,-0.9,0);
 		glRotatef(180,0,0,1);
 		glScalef(1.9,1.5,0.75);
-		drawCylinder(0.1854,0.1854,0.4,10,5,5,5);
+		drawCylinder(0.1854,0.1854,0.35,10,5,5,5);
 	glPopMatrix();
 	glEndList();
 		// Torso
@@ -255,13 +255,23 @@ void struct_torso(void)
 				glVertex3f(0.6f*cos(PI*i/10.0f),0.6f*sin(PI*i/10.0f),0);
 			}
 		glEnd();
-		glPushMatrix();
-			glTranslatef(0,0,0.55);
-			glRotatef(100,1,0,0);
-			gluCylinder(quad,0.05,0,0.3,10,5);
-		glPopMatrix();
+		float h[20]={0.24,0.26,0.24,0.22,0.2,0.18,0.2,0.35,0.2,0.15,0.15,0.2,0.35,0.2,0.18,0.2,0.22,0.24,0.26,0.24};
+		float s=(PI-19.0/9.0)/2.0;
+		for(int i=0;i<20;i++,s+=1.0/9.0)
+		{
+			glPushMatrix();
+				glTranslatef(0.55*cos(s),0,0.55*sin(s));
+				glRotatef(100,1,0,0);
+				gluCylinder(quad,0.05,0,h[i],10,2);
+			glPopMatrix();
+		}
 	glPopMatrix();
 	glEndList();
+}
+
+void struct_dino_head(void)
+{
+	
 }
 
 void struct_neck(void)
@@ -294,9 +304,14 @@ void struct_head(void)
 		glColor3ub(255,255,255);
 		glScalef(1.5,1.5,1.5);
 		glPushMatrix();
+			//~ SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
+			//~ glColor3ub(255,255,255);
+			//~ glEnable(GL_TEXTURE_2D);
+			//~ glBindTexture(GL_TEXTURE_2D,armort[0]);
 			glRotatef(-90,1,0,0);
 			GLUquadric* quad=gluNewQuadric();
 			gluCylinder(quad,0.2,0.1,0.2,10,5);
+			//~ glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
 		glPushMatrix();
 			SetMaterial(mat_specularORANGE, mat_ambientORANGE, mat_diffuseORANGE, mat_shininessORANGE);
@@ -692,5 +707,6 @@ void init_structures(void)
 	struct_leg();
 	struct_hand();
 	struct_dino_leg();
+	struct_dino_head();
 	struct_foot();
 }
