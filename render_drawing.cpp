@@ -277,12 +277,12 @@ void transform_dino(GLFWwindow* window)
 		if(armor_angle<135){armor_angle+=3;flag=true;}
 		if(head_pop>=0&&head_pop<180){head_pop+=3;flag=true;}
 		if(head_pop<0&&head_pop>-180){head_pop-=3;flag=true;}
-		if(right_arm_angle<270){right_arm_angle+=3;flag=true;}
-		if(right_arm_angle>270){right_arm_angle-=3;flag=true;}
+		if(right_arm_angle<300){right_arm_angle+=3;flag=true;}
+		if(right_arm_angle>300){right_arm_angle-=3;flag=true;}
 		if(right_forearm_angle<-15){right_forearm_angle+=3;flag=true;}
 		if(right_forearm_angle>-15){right_forearm_angle-=3;flag=true;}
-		if(left_arm_angle<270){left_arm_angle+=3;flag=true;}
-		if(left_arm_angle>270){left_arm_angle-=3;flag=true;}
+		if(left_arm_angle<300){left_arm_angle+=3;flag=true;}
+		if(left_arm_angle>300){left_arm_angle-=3;flag=true;}
 		if(left_forearm_angle<-15){left_forearm_angle+=3;flag=true;}
 		if(left_forearm_angle>-15){left_forearm_angle-=3;flag=true;}
 		if(left_thigh_angle>-159){left_thigh_angle-=3;flag=true;}
