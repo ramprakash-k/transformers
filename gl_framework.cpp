@@ -15,6 +15,8 @@ void initGL(void)
 	LoadGLTextures("armor.bmp",armort);
 	LoadGLTextures("head.bmp",headt);
 	LoadGLTextures("dino.bmp",dinot);
+	LoadGLTextures("grass.bmp",grasst);
+	LoadGLTextures("sky.bmp",skyt);
     glShadeModel(GL_SMOOTH);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	glClearDepth(1.0f);
@@ -36,10 +38,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport( 0, 0, width, height );
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,50.0f);
+    gluPerspective(90.0f,(GLfloat)width/(GLfloat)height,0.1f,50.0f);
     glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslatef(0,1,-10);
+	//~ glTranslatef(0,0,-10);
     win_width = width;
     win_height = height;
 }

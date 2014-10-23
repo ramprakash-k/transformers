@@ -46,10 +46,12 @@ float cam_x=0.0f,cam_z=-0.0f,cam_ay=0.0f;
 GLuint armort[1];
 GLuint headt[1];
 GLuint dinot[1];
+GLuint grasst[1];
+GLuint skyt[1];
 
 void lights(void)
 {
-  GLfloat position[] =  {0.0, 0.0, 5.0, 1.0};
+  GLfloat position[] =  {0.0, 0.0, 8.0, 1.0};
   glRotatef(lightturn1, 1.0, 0.0, 0.0);
   glRotatef(lightturn, 0.0, 1.0, 0.0);
 
@@ -59,7 +61,7 @@ void lights(void)
   glDepthFunc(GL_LESS);
 
   glLightfv(GL_LIGHT0, GL_POSITION, position);
-  glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 80.0);
+  glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 180.0);
   glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
 
   glTranslatef(0.0, 0.0, 5.0);
@@ -223,8 +225,27 @@ void render_drawing(GLFWwindow* window)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glPushMatrix();
+		glTranslatef(0,0,-10);
 		glRotatef(360-cam_ay,0,1,0);
 		glTranslatef(-cam_x,0,-cam_z);
+		SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
+		glColor3ub(255,255,255);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D,skyt[0]);
+		glPushMatrix();
+			glTranslatef(0,-5,0);
+			drawHemisphere(15.0f,30,30,30,30,-1);
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D,grasst[0]);
+		glPushMatrix();
+			glTranslatef(0,-5,0);
+			glRotatef(180,1,0,0);
+			GLUquadric* quad=gluNewQuadric();
+			drawCylinder(15,0,0.1,30,30,30,30);
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
 		glPushMatrix();
 			lights();
 		glPopMatrix();
@@ -274,6 +295,10 @@ void transform_dino(GLFWwindow* window)
 	while(flag)
 	{
 		flag=false;
+		if(bust_angle_x>45){bust_angle_x-=1;flag=true;}
+		if(bust_angle_x<45){bust_angle_x+=1;flag=true;}
+		if(bust_angle_y>135){bust_angle_y-=3;flag=true;}
+		if(bust_angle_y<135){bust_angle_y+=3;flag=true;}
 		if(armor_angle>135){armor_angle-=3;flag=true;}
 		if(armor_angle<135){armor_angle+=3;flag=true;}
 		if(head_pop>=0&&head_pop<180){head_pop+=3;flag=true;}

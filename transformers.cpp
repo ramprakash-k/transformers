@@ -164,7 +164,6 @@ void struct_torso(void)
 	glNewList(armor,GL_COMPILE);
 	glPushMatrix();
 		SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
-		// SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
 		glColor3ub(255,255,255);
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D,armort[0]);
@@ -609,12 +608,14 @@ void struct_foot(void)
 	SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
 	glColor3ub(64,64,64);
 	glPushMatrix();
+		glScalef(1,1.5,1);
 		glRotatef(90,1,0,0);
 		drawHemisphere(0.25,20,20,20,20,1);
 		glRotatef(90,1,0,0);
 		gluDisk(quad,0,0.25,20,20);
 	glPopMatrix();
 	glPushMatrix();
+		glScalef(1,1.5,1);
 		drawCylinder(0.2,0.15,0.4,20,20,10,20);
 		glPushMatrix();
 			glTranslatef(0,0.4,0);

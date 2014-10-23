@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "image.hpp"
-#include <iostream>
 #include <fstream>
 
 using namespace std;
@@ -23,15 +22,15 @@ int ImageLoad(char *filename, Image *image) {
 
     file.seekg(10, ios_base::cur);
     file.read((char *)&image_start, 4);
-    cout<<"Image start: "<<image_start<<endl;
+    //~ cout<<"Image start: "<<image_start<<endl;
 
     file.seekg(4, ios_base::cur);
 
     file.read((char *)&image->sizeX, 4);
-    printf("Width of %s: %lu\n", filename, image->sizeX);
+    //~ printf("Width of %s: %lu\n", filename, image->sizeX);
 
     file.read((char *)&image->sizeY, 4);
-    printf("Height of %s: %lu\n", filename, image->sizeY);
+    //~ printf("Height of %s: %lu\n", filename, image->sizeY);
 
     size = image->sizeX * image->sizeY * 4;
 

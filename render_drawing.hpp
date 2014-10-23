@@ -40,6 +40,8 @@ extern float cam_x,cam_z,cam_ay;
 extern GLuint armort[1];
 extern GLuint headt[1];
 extern GLuint dinot[1];
+extern GLuint grasst[1];
+extern GLuint skyt[1];
 
 void render_drawing(GLFWwindow* window);
 void transform_robot(GLFWwindow* window);
