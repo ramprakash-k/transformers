@@ -117,9 +117,9 @@ GLfloat mat_ambientSILVER[] ={255.0*0.19225,255.0*0.19225,255.0*0.19225,1.0};
 GLfloat mat_diffuseSILVER[] ={255.0*0.50754,255.0*0.50754,255.0*0.50754,1.0};
 GLfloat mat_shininessSILVER[] ={128.0 * 0.4};
 
-GLfloat mat_specularWHITE[] ={50.0,50.0,50.0,1.0};
-GLfloat mat_ambientWHITE[] ={10.0,10.0,10.0,1.0};
-GLfloat mat_diffuseWHITE[] ={0.0,0.0,0.0,1.0};
+GLfloat mat_specularWHITE[] ={0.5,0.5,0.5,1.0};
+GLfloat mat_ambientWHITE[] ={0.0,0.0,0.0,1.0};
+GLfloat mat_diffuseWHITE[] ={10.0,10.0,10.0,1.0};
 GLfloat mat_shininessWHITE[] ={128.0 * 0.1};
 
 GLfloat mat_specularGRAY[] ={0.75,0.75,0.75,1.0};
@@ -164,6 +164,7 @@ void struct_torso(void)
 	glNewList(armor,GL_COMPILE);
 	glPushMatrix();
 		SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
+		// SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
 		glColor3ub(255,255,255);
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D,armort[0]);

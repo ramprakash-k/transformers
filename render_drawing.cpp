@@ -60,6 +60,7 @@ void lights(void)
 
   glLightfv(GL_LIGHT0, GL_POSITION, position);
   glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 80.0);
+  glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
 
   glTranslatef(0.0, 0.0, 5.0);
   glDisable(GL_LIGHTING);
