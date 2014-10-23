@@ -117,10 +117,10 @@ GLfloat mat_ambientSILVER[] ={255.0*0.19225,255.0*0.19225,255.0*0.19225,1.0};
 GLfloat mat_diffuseSILVER[] ={255.0*0.50754,255.0*0.50754,255.0*0.50754,1.0};
 GLfloat mat_shininessSILVER[] ={128.0 * 0.4};
 
-GLfloat mat_specularWHITE[] ={255.0,255.0,255.0,1.0};
-GLfloat mat_ambientWHITE[] ={255.0,255.0,255.0,1.0};
-GLfloat mat_diffuseWHITE[] ={255.0,255.0,255.0,1.0};
-GLfloat mat_shininessWHITE[] ={128.0 * 0.4};
+GLfloat mat_specularWHITE[] ={50.0,50.0,50.0,1.0};
+GLfloat mat_ambientWHITE[] ={10.0,10.0,10.0,1.0};
+GLfloat mat_diffuseWHITE[] ={0.0,0.0,0.0,1.0};
+GLfloat mat_shininessWHITE[] ={128.0 * 0.1};
 
 GLfloat mat_specularGRAY[] ={0.75,0.75,0.75,1.0};
 GLfloat mat_ambientGRAY[] ={0.5,0.5,0.5,1.0};

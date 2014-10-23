@@ -19,9 +19,6 @@ void initGL(void)
 	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-	glFrontFace(GL_CCW);
 	glPolygonMode(GL_FRONT,GL_FILL);
 	init_structures();
 }
@@ -380,7 +377,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			bust_angle_x+=angle_step;
 			if(bust_angle_x==360.0f)bust_angle_x=0.0f;
 		}
-		
+
 		if (key == GLFW_KEY_G)
 			lightturn+=5 % 360;
 		if (key == GLFW_KEY_C)
