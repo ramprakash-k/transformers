@@ -1,5 +1,5 @@
-#ifndef _TRANSFORMERS_DEFS_HPP_
-#define _TRANSFORMERS_DEFS_HPP_
+#ifndef TRANSFORMERS_DEFS_HPP
+#define TRANSFORMERS_DEFS_HPP
 
 #define torso			1
 #define armor			101
@@ -19,4 +19,4 @@
 #define d_leg			801
 #define foot			9
 
-#endif
+#endif  // TRANSFORMERS_DEFS_HPP

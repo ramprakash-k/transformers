@@ -1,6 +1,6 @@
-#ifndef _TRANSFORMERS_HPP_
-#define _TRANSFORMERS_HPP_
+#ifndef TRANSFORMERS_HPP
+#define TRANSFORMERS_HPP
 
 void init_structures(void);
 
-#endif
+#endif // TRANSFORMERS_HPP

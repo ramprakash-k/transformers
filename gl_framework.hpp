@@ -1,5 +1,5 @@
-#ifndef _GL_FRAMEWORK_HPP_
-#define _GL_FRAMEWORK_HPP_
+#ifndef GL_FRAMEWORK_HPP
+#define GL_FRAMEWORK_HPP
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -10,7 +10,7 @@ namespace csX75
 {
   //! Initialize GL State
   void initGL(void);
- 
+
   //!GLFW Error Callback
   void error_callback(int error, const char* description);
   //!GLFW framebuffer resize callback
@@ -19,4 +19,4 @@ namespace csX75
   void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 };
 
-#endif
+#endif // GL_FRAMEWORK_HPP

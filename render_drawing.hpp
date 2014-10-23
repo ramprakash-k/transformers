@@ -1,5 +1,5 @@
-#ifndef _RENDER_DRAWING_HPP_
-#define _RENDER_DRAWING_HPP_
+#ifndef RENDER_DRAWING_HPP
+#define RENDER_DRAWING_HPP
 
 extern float bust_angle_y;
 extern float bust_angle_x;
@@ -45,4 +45,4 @@ void render_drawing(GLFWwindow* window);
 void transform_robot(GLFWwindow* window);
 void transform_dino(GLFWwindow* window);
 
-#endif
+#endif // RENDER_DRAWING_HPP

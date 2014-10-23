@@ -84,27 +84,27 @@ void drawCube(float side)
 		glNormal3f(0,0,-1);glVertex3f(f, -f, -f);
 		glNormal3f(0,0,-1);glVertex3f(f, f, -f);
 		glNormal3f(0,0,-1);glVertex3f(-f, f, -f);
-		
+
 		glNormal3f(-1,0,0);glVertex3f(-f, -f, -f);
 		glNormal3f(-1,0,0);glVertex3f(-f, -f, f);
 		glNormal3f(-1,0,0);glVertex3f(-f, f, f);
 		glNormal3f(-1,0,0);glVertex3f(-f, f, -f);
-		
+
 		glNormal3f(0,-1,0);glVertex3f(-f, -f, -f);
 		glNormal3f(0,-1,0);glVertex3f(-f, -f, f);
 		glNormal3f(0,-1,0);glVertex3f(f, -f, f);
 		glNormal3f(0,-1,0);glVertex3f(f, -f, -f);
-		
+
 		glNormal3f(0,0,1);glVertex3f(-f, -f, f);
 		glNormal3f(0,0,1);glVertex3f(f, -f, f);
 		glNormal3f(0,0,1);glVertex3f(f, f, f);
 		glNormal3f(0,0,1);glVertex3f(-f, f, f);
-		
+
 		glNormal3f(1,0,0);glVertex3f(f,-f,-f);
 		glNormal3f(1,0,0);glVertex3f(f,f,-f);
 		glNormal3f(1,0,0);glVertex3f(f,f,f);
 		glNormal3f(1,0,0);glVertex3f(f,-f,f);
-		
+
 		glNormal3f(0,1,0);glVertex3f(-f, f, -f);
 		glNormal3f(0,1,0);glVertex3f(-f, f, f);
 		glNormal3f(0,1,0);glVertex3f(f, f, f);
@@ -290,14 +290,14 @@ void struct_dino_head(void)
 		glRotatef(20,-1,0,0);
 		glScalef(0.6,0.5,1.2);
 		glRotatef(180,0,0,1);
-		//~ SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
-		//~ glColor3ub(255,255,255);
-		//~ glEnable(GL_TEXTURE_2D);
-		//~ glBindTexture(GL_TEXTURE_2D,dinot[0]);
+		SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
+		glColor3ub(255,255,255);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D,dinot[0]);
 		drawHemisphere(0.6,20,7,5,7,1);
-		//~ glDisable(GL_TEXTURE_2D);
-		//~ SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
-		//~ glColor3f(1.0,1.0,1.0);
+		glDisable(GL_TEXTURE_2D);
+		SetMaterial(mat_specularGRAY, mat_ambientGRAY, mat_diffuseGRAY, mat_shininessGRAY);
+		glColor3f(1.0,1.0,1.0);
 		drawHemisphere(0.5,20,7,5,7,-1);
 		glBegin(GL_TRIANGLE_STRIP);
 			glNormal3f(0,-1,0);
@@ -333,7 +333,7 @@ void struct_dino_head(void)
 		gluCylinder(quad,0.05,0,0.4,10,2);
 	glPopMatrix();
 	glEndList();
-	
+
 		// Head joining Bar
 	glNewList(d_bar,GL_COMPILE);
 	glPushMatrix();
@@ -345,7 +345,7 @@ void struct_dino_head(void)
 		drawCube(1);
 	glPopMatrix();
 	glEndList();
-	
+
 		// Head Joint
 	glNewList(d_joint,GL_COMPILE);
 		SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
@@ -388,14 +388,13 @@ void struct_head(void)
 		glColor3ub(255,255,255);
 		glScalef(1.5,1.5,1.5);
 		glPushMatrix();
-			glRotatef(-90,1,0,0);
-			gluCylinder(quad,0.2,0.1,0.2,10,5);
-			//~ SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
-			//~ glColor3ub(255,255,255);
-			//~ glEnable(GL_TEXTURE_2D);
-			//~ glBindTexture(GL_TEXTURE_2D,headt[0]);
-			//~ drawCylinder(0.2,0.1,0.2,10,5,10,5);
-			//~ glDisable(GL_TEXTURE_2D);
+			SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
+			glColor3ub(255,255,255);
+			glEnable(GL_TEXTURE_2D);
+			glRotatef(-90,0,1,0);
+			glBindTexture(GL_TEXTURE_2D,headt[0]);
+			drawCylinder(0.2,0.1,0.2,10,5,10,5);
+			glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
 		glPushMatrix();
 			SetMaterial(mat_specularORANGE, mat_ambientORANGE, mat_diffuseORANGE, mat_shininessORANGE);
@@ -521,6 +520,8 @@ void struct_thigh(void)
 			glEnd();
 		glPopMatrix();
 		glTranslatef(0.25,0,0);
+		glRotatef(-30,1,0,0);
+		glRotatef(-30,0,0,1);
 		gluSphere(quad,0.1,20,20);
 		gluCylinder(quad,0.1,0.05,0.4,20,20);
 		glTranslatef(0,0,0.4);
@@ -737,7 +738,7 @@ void struct_dino_leg(void)
 		SetMaterial(mat_specularBLACK, mat_ambientBLACK, mat_diffuseBLACK, mat_shininessBLACK);
 		glColor3ub(255,255,255);
 		glTranslatef(-0.1,0.1,0);
-		glRotatef(-45,0,0,1);	
+		glRotatef(-45,0,0,1);
 		glBegin(GL_QUADS);
 			glNormal3f(0,0,-1);
 			glVertex3f(0,0,0.24);
