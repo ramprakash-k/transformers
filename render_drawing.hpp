@@ -19,7 +19,11 @@ extern float left_d_leg_angle;
 extern float right_wrist_angle;
 extern float left_wrist_angle;
 extern float right_d_leg_angle;
+extern float height;
 extern float cam_x,cam_z,cam_ay;
+
+extern bool light0;
+extern bool light1;
 
 extern GLuint armort[1];
 extern GLuint headt[1];

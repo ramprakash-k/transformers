@@ -1,4 +1,5 @@
 #include <math.h>
+#include <unistd.h>
 #include "gl_framework.hpp"
 #include "render_drawing.hpp"
 #include "transformers.hpp"
@@ -53,7 +54,6 @@ int state=1;
 //3 -> dino
 //4 -> trans-robot
 
-
 //!GLFW keyboard callback
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -63,6 +63,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         glfwSetWindowShouldClose(window, GL_TRUE);
     if ((action ==  GLFW_PRESS || action == GLFW_REPEAT) && (state == 1 || state == 3))
     {
+    	if (key == GLFW_KEY_G)
+		{
+			light0=!light0;
+		}
+		if (key == GLFW_KEY_C)
+		{
+			light1=!light1;
+		}
 		if (key == GLFW_KEY_H)
 		{
 			head_pop+=angle_step;
