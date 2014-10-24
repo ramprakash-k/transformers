@@ -21,6 +21,9 @@ extern float left_wrist_angle;
 extern float right_d_leg_angle;
 extern float height;
 extern float cam_x,cam_z,cam_ay;
+extern float pos_x,pos_z,dir;
+
+extern int camera;
 
 extern bool light0;
 extern bool light1;

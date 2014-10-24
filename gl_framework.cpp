@@ -42,7 +42,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     gluPerspective(90.0f,(GLfloat)width/(GLfloat)height,0.1f,2000.0f);
     glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	//~ glTranslatef(0,0,-10);
     win_width = width;
     win_height = height;
 }
@@ -246,40 +245,38 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 	if (action ==  GLFW_PRESS || action == GLFW_REPEAT)
 	{
-		if (key == GLFW_KEY_LEFT)
+		if (glfwGetKey(window,GLFW_KEY_LEFT)==GLFW_PRESS)
 		{
-			if(bust_angle_y==0.0f)bust_angle_y=360.0f;
-			bust_angle_y-=angle_step;
+			if(dir==360.0f)dir=0.0f;
+			dir+=2*angle_step;
 		}
-		if (key == GLFW_KEY_RIGHT)
+		if (glfwGetKey(window,GLFW_KEY_RIGHT)==GLFW_PRESS)
 		{
-			bust_angle_y+=angle_step;
-			if(bust_angle_y==360.0f)bust_angle_y=0.0f;
+			dir-=2*angle_step;
+			if(dir==-6.0f)dir=354.0f;
 		}
-		if (key == GLFW_KEY_UP)
+		if (glfwGetKey(window,GLFW_KEY_UP)==GLFW_PRESS)
 		{
-			if(bust_angle_x==0.0f)bust_angle_x=360.0f;
-			bust_angle_x-=angle_step;
+			pos_x+=cos(dir*piover180);
+			pos_z-=sin(dir*piover180);
+			if(pos_x*pos_x+pos_z*pos_z>8100)
+			{
+				pos_x-=2*cos(dir*piover180);
+				pos_z+=2*sin(dir*piover180);
+			}
 		}
-		if (key == GLFW_KEY_DOWN)
+		if (glfwGetKey(window,GLFW_KEY_DOWN)==GLFW_PRESS)
 		{
-			bust_angle_x+=angle_step;
-			if(bust_angle_x==360.0f)bust_angle_x=0.0f;
-		}
-		if (key == GLFW_KEY_N)
-		{
-			cam_x-=0;
-			cam_z-=1;
-		}
-		if (key == GLFW_KEY_M)
-		{
-			cam_x+=0;
-			cam_z+=1;
+			pos_x-=cos(dir*piover180);
+			pos_z+=sin(dir*piover180);
+			if(pos_x*pos_x+pos_z*pos_z>8100)
+			{
+				pos_x+=2*cos(dir*piover180);
+				pos_z-=2*sin(dir*piover180);
+			}
 		}
 		if (key == GLFW_KEY_V)
-			cam_ay-=1.0f;
-		if (key == GLFW_KEY_B)
-			cam_ay+=1.0f;
+			camera=(camera+1)%3;
 	}
 }
 };

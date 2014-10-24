@@ -30,6 +30,9 @@ float right_d_leg_angle=0.0f;
 float left_d_leg_angle=0.0f;
 float height=-1.2f;
 float cam_x=0.0f,cam_z=-0.0f,cam_ay=0.0f;
+float pos_x=0,pos_z=0,dir=270;
+
+int camera=1;
 
 bool light0=true;
 bool light1=true;
@@ -43,11 +46,14 @@ GLuint skyt[1];
 
 void lights(void)
 {
-  GLfloat position1[] =  {0.0, 0.0, 90, 1.0};
-  GLfloat position2[] =  {0.0, 0.0, -90, 1.0};
+  GLfloat position1[] =  {0.0, 15.0, 90, 1.0};
+  GLfloat pos1[] =  {0.0, -15.0, -90, 1.0};
+  GLfloat position2[] =  {0.0, 15.0, -90, 1.0};
+  GLfloat pos2[] =  {0.0, -15.0, 90, 1.0};
 
   GLfloat temp[]={1.0,1.0,1.0,1.0};
-  GLfloat tem[]={1,1,0,1};
+  GLfloat temp1[]={0,0,0,0};
+  GLfloat tem[]={1,0.5,0,1};
   glEnable(GL_LIGHTING);
   if(light0) glEnable(GL_LIGHT0);
   else glDisable(GL_LIGHT0);
@@ -59,18 +65,19 @@ void lights(void)
   glDepthFunc(GL_LESS);
 
   glLightfv(GL_LIGHT0, GL_POSITION, position1);
+  glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, pos1);
   glLightfv(GL_LIGHT1, GL_POSITION, position2);
-  glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, position1);
+  glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, pos2);
   glLightfv(GL_LIGHT1, GL_DIFFUSE, temp);
   glLightfv(GL_LIGHT2, GL_DIFFUSE, tem);
   glLightfv(GL_LIGHT3, GL_DIFFUSE, tem);
   glLightfv(GL_LIGHT1, GL_SPECULAR, temp);
   glLightfv(GL_LIGHT2, GL_SPECULAR, tem);
   glLightfv(GL_LIGHT3, GL_SPECULAR, tem);
-  glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 80.0);
-  glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 80.0);
-  glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 40.0);
-  glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 40.0);
+  glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 180.0);
+  glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 180.0);
+  glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 50.0);
+  glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 50.0);
   glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
   glEnable(GL_LIGHTING);
 }
@@ -240,18 +247,33 @@ void DrawRobot(void)
 
 void render_drawing(GLFWwindow* window)
 {
+	GLfloat temp[]={0,0,0,0};
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glPushMatrix();
-        glTranslatef(0,0,-10);
-        glTranslatef(-cam_x,0,-cam_z);
-        glRotatef(360-cam_ay,0,1,0);
-        SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
+        if(camera==1)
+        {
+			glTranslatef(0,-5,-20);
+		}
+		if(camera==2)
+		{
+			glTranslatef(0,0,-8);
+			glRotatef(90-dir,0,1,0);
+			glTranslatef(-pos_x,0,-pos_z);
+		}
+		if(camera==0)
+		{
+			glTranslatef(0,0,1);
+			glRotatef(90-dir,0,1,0);
+			glTranslatef(-pos_x,0,-pos_z);
+		}
+        lights();
+        SetMaterial(temp, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
         glColor3ub(255,255,255);
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D,skyt[0]);
         glPushMatrix();
             glTranslatef(0,-5,0);
-            drawCylinder(100,0,200,30,30,30,30,-1);
+            drawHemisphere(100,30,30,30,30,-1);
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
         glEnable(GL_TEXTURE_2D);
@@ -263,75 +285,55 @@ void render_drawing(GLFWwindow* window)
             drawCylinder(100,0,0.1,30,30,30,30,1);
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
-        lights();
-        glTranslatef(0,1,0);
-        glTranslatef(0,height,0);
+        glTranslatef(pos_x,0,pos_z);
+        glRotatef(dir-270,0,1,0);
+        glTranslatef(0,1+height,0);
         DrawRobot();
     glPopMatrix();
 }
 
 void transform_dino(GLFWwindow* window)
 {
-    bust_angle_y=0.0f;
-    bust_angle_x=0.0f;
-    armor_angle=0.0f;
-    head_pop=0.0f;
-    right_arm_angle=0.0f;
-    left_arm_angle=0.0f;
-    right_forearm_angle=0.0f;
-    left_forearm_angle=0.0f;
-    left_thigh_angle=0.0f;
-    right_thigh_angle=0.0f;
-    right_leg_angle=0.0f;
-    left_leg_angle=0.0f;
-    right_foot_angle=90.0f;
-    left_foot_angle=90.0f;
-    right_wrist_angle=0.0f;
-    left_wrist_angle=0.0f;
-    right_d_leg_angle=0.0f;
-    left_d_leg_angle=0.0f;
-    render_drawing(window);
-    glfwSwapBuffers(window);
-    bool flag=true;
-    while(flag)
-    {
-        flag=false;
-        if(bust_angle_x>70){bust_angle_x-=1;flag=true;}
-        if(bust_angle_x<70){bust_angle_x+=1;flag=true;}
-        if(bust_angle_y>180){bust_angle_y-=3;flag=true;}
-        if(bust_angle_y<180){bust_angle_y+=3;flag=true;}
-        if(armor_angle>135){armor_angle-=3;flag=true;}
-        if(armor_angle<135){armor_angle+=3;flag=true;}
-        if(head_pop>=0&&head_pop<180){head_pop+=3;flag=true;}
-        if(head_pop<0&&head_pop>-180){head_pop-=3;flag=true;}
-        if(right_arm_angle<300){right_arm_angle+=3;flag=true;}
-        if(right_arm_angle>300){right_arm_angle-=3;flag=true;}
-        if(right_forearm_angle<-15){right_forearm_angle+=3;flag=true;}
-        if(right_forearm_angle>-15){right_forearm_angle-=3;flag=true;}
-        if(left_arm_angle<300){left_arm_angle+=3;flag=true;}
-        if(left_arm_angle>300){left_arm_angle-=3;flag=true;}
-        if(left_forearm_angle<-15){left_forearm_angle+=3;flag=true;}
-        if(left_forearm_angle>-15){left_forearm_angle-=3;flag=true;}
-        if(left_thigh_angle>-159){left_thigh_angle-=3;flag=true;}
-        if(right_thigh_angle>-159){right_thigh_angle-=3;flag=true;}
-        if(left_leg_angle<-3){left_leg_angle+=3;flag=true;}
-        if(left_leg_angle>-3){left_leg_angle-=3;flag=true;}
-        if(right_leg_angle<-3){right_leg_angle+=3;flag=true;}
-        if(right_leg_angle>-3){right_leg_angle-=3;flag=true;}
-        if(right_wrist_angle<90){right_wrist_angle+=3;flag=true;}
-        if(right_wrist_angle>90){right_wrist_angle-=3;flag=true;}
-        if(left_wrist_angle<90){left_wrist_angle+=3;flag=true;}
-        if(left_wrist_angle>90){left_wrist_angle-=3;flag=true;}
-        if(right_d_leg_angle<222){right_d_leg_angle+=3;flag=true;}
-        if(right_d_leg_angle>222){right_d_leg_angle-=3;flag=true;}
-        if(left_d_leg_angle<222){left_d_leg_angle+=3;flag=true;}
-        if(left_d_leg_angle>222){left_d_leg_angle-=3;flag=true;}
-        if(right_foot_angle>0){right_foot_angle-=3;flag=true;}
-        if(left_foot_angle>0){left_foot_angle-=3;flag=true;}
-        if(height>-2.79){height-=0.02;flag=true;}
-        if(height<-2.81){height+=0.02;flag=true;}
-        render_drawing(window);
-        glfwSwapBuffers(window);
+	bool flag=true;
+	while(flag)
+	{
+		flag=false;
+		if(bust_angle_x>70){bust_angle_x-=1;flag=true;}
+		if(bust_angle_x<70){bust_angle_x+=1;flag=true;}
+		if(bust_angle_y>180){bust_angle_y-=3;flag=true;}
+		if(bust_angle_y<180){bust_angle_y+=3;flag=true;}
+		if(armor_angle>135){armor_angle-=3;flag=true;}
+		if(armor_angle<135){armor_angle+=3;flag=true;}
+		if(head_pop>=0&&head_pop<180){head_pop+=3;flag=true;}
+		if(head_pop<0&&head_pop>-180){head_pop-=3;flag=true;}
+		if(right_arm_angle<300){right_arm_angle+=3;flag=true;}
+		if(right_arm_angle>300){right_arm_angle-=3;flag=true;}
+		if(right_forearm_angle<-15){right_forearm_angle+=3;flag=true;}
+		if(right_forearm_angle>-15){right_forearm_angle-=3;flag=true;}
+		if(left_arm_angle<300){left_arm_angle+=3;flag=true;}
+		if(left_arm_angle>300){left_arm_angle-=3;flag=true;}
+		if(left_forearm_angle<-15){left_forearm_angle+=3;flag=true;}
+		if(left_forearm_angle>-15){left_forearm_angle-=3;flag=true;}
+		if(left_thigh_angle>-159){left_thigh_angle-=3;flag=true;}
+		if(right_thigh_angle>-159){right_thigh_angle-=3;flag=true;}
+		if(left_leg_angle<-3){left_leg_angle+=3;flag=true;}
+		if(left_leg_angle>-3){left_leg_angle-=3;flag=true;}
+		if(right_leg_angle<-3){right_leg_angle+=3;flag=true;}
+		if(right_leg_angle>-3){right_leg_angle-=3;flag=true;}
+		if(right_wrist_angle<90){right_wrist_angle+=3;flag=true;}
+		if(right_wrist_angle>90){right_wrist_angle-=3;flag=true;}
+		if(left_wrist_angle<90){left_wrist_angle+=3;flag=true;}
+		if(left_wrist_angle>90){left_wrist_angle-=3;flag=true;}
+		if(right_d_leg_angle<222){right_d_leg_angle+=3;flag=true;}
+		if(right_d_leg_angle>222){right_d_leg_angle-=3;flag=true;}
+		if(left_d_leg_angle<222){left_d_leg_angle+=3;flag=true;}
+		if(left_d_leg_angle>222){left_d_leg_angle-=3;flag=true;}
+		if(right_foot_angle>0){right_foot_angle-=3;flag=true;}
+		if(left_foot_angle>0){left_foot_angle-=3;flag=true;}
+		if(height>-2.79){height-=0.02;flag=true;}
+		if(height<-2.81){height+=0.02;flag=true;}
+		render_drawing(window);
+		glfwSwapBuffers(window);
     }
 }
 
