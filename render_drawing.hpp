@@ -27,6 +27,7 @@ extern int camera;
 
 extern bool light0;
 extern bool light1;
+extern bool light2;
 extern bool headlight;
 
 extern GLuint armort[1];

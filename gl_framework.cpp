@@ -64,13 +64,17 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         glfwSetWindowShouldClose(window, GL_TRUE);
     if ((action ==  GLFW_PRESS || action == GLFW_REPEAT) && (state == 1 || state == 3))
     {
-    	if (key == GLFW_KEY_G)
+    	if (key == GLFW_KEY_F2)
 		{
 			light0=!light0;
 		}
-		if (key == GLFW_KEY_C)
+		if (key == GLFW_KEY_F3)
 		{
 			light1=!light1;
+		}
+		if (key == GLFW_KEY_F4)
+		{
+			light2=!light2;
 		}
 		if (key == GLFW_KEY_F1)
 		{
@@ -251,11 +255,51 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			if(dir==360.0f)dir=0.0f;
 			dir+=2*angle_step;
+			
+			if(state == 3)
+			{
+				if(right_arm_angle>285)
+				{
+					right_arm_angle -= 3;
+					left_arm_angle += 3;
+				}
+			}
+
+			if(state == 1)
+			{
+				if(right_thigh_angle>-15)
+				{
+					right_arm_angle += 3;
+					left_arm_angle -= 3;
+					right_thigh_angle -= 3;
+					left_thigh_angle += 3;
+				}
+			}
 		}
 		if (glfwGetKey(window,GLFW_KEY_RIGHT)==GLFW_PRESS)
 		{
 			dir-=2*angle_step;
 			if(dir==-6.0f)dir=354.0f;
+			
+			if(state == 3)
+			{
+				if(right_arm_angle<315)
+				{
+					right_arm_angle += 3;
+					left_arm_angle -= 3;
+				}
+			}
+
+			if(state == 1)
+			{
+				if(right_thigh_angle<15)
+				{
+					right_arm_angle -= 3;
+					left_arm_angle += 3;
+					right_thigh_angle += 3;
+					left_thigh_angle -= 3;
+				}
+			}
 		}
 		if (glfwGetKey(window,GLFW_KEY_UP)==GLFW_PRESS)
 		{
@@ -319,9 +363,21 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 		if (key == GLFW_KEY_V)
 			camera=(camera+1)%3;
+		if (key == GLFW_KEY_B && camera==1)
+		{
+			cam_ay+=3;
+			if(cam_ay>360)cam_ay=0;
+		}
+		if (key == GLFW_KEY_N && camera==1)
+		{
+			cam_z+=3;
+			if(cam_z>90)cam_z=90;
+		}
+		if (key == GLFW_KEY_M && camera==1)
+		{
+			cam_z-=3;
+			if(cam_z<-90)cam_z=-90;
+		}
 	}
 }
 };
-
-
-

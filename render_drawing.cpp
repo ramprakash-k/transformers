@@ -29,13 +29,14 @@ float left_wrist_angle=0.0f;
 float right_d_leg_angle=0.0f;
 float left_d_leg_angle=0.0f;
 float height=-1.2f;
-float cam_x=0.0f,cam_z=-0.0f,cam_ay=0.0f;
+float cam_x=0.0f,cam_z=-21.0f,cam_ay=0.0f;
 float pos_x=0,pos_z=0,dir=270;
 
 int camera=1;
 
 bool light0=true;
 bool light1=true;
+bool light2=true;
 bool headlight=false;
 
 GLuint armort[1];
@@ -46,10 +47,12 @@ GLuint skyt[1];
 
 void lights(void)
 {
-  GLfloat position1[] =  {0.0, 15.0, 90, 1.0};
-  GLfloat pos1[] =  {0.0, -15.0, -90, 1.0};
-  GLfloat position2[] =  {0.0, 15.0, -90, 1.0};
-  GLfloat pos2[] =  {0.0, -15.0, 90, 1.0};
+  GLfloat position1[] =  {0.0, 15.0, 90, 0.0};
+  GLfloat pos1[] =  {0.0, 0.0, -90, 1.0};
+  GLfloat position2[] =  {-45.0, 15.0, -45.0*1.732, 0.0};
+  GLfloat pos2[] =  {45.0, 0.0, 45.0*1.732, 1.0};
+  GLfloat position3[] =  {45.0, 15.0, -45.0*1.732, 0.0};
+  GLfloat pos3[] =  {-45.0, 0.0, 45.0*1.732, 1.0};
 
   GLfloat temp[]={1.0,1.0,1.0,1.0};
   GLfloat temp1[]={0,0,0,0};
@@ -59,6 +62,8 @@ void lights(void)
   else glDisable(GL_LIGHT0);
   if(light1) glEnable(GL_LIGHT1);
   else glDisable(GL_LIGHT1);
+  if(light2) glEnable(GL_LIGHT4);
+  else glDisable(GL_LIGHT4);
   if(headlight){glEnable(GL_LIGHT2);glEnable(GL_LIGHT3);}
   else {glDisable(GL_LIGHT2);glDisable(GL_LIGHT3);}
   glEnable(GL_NORMALIZE);
@@ -68,14 +73,19 @@ void lights(void)
   glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, pos1);
   glLightfv(GL_LIGHT1, GL_POSITION, position2);
   glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, pos2);
+  glLightfv(GL_LIGHT4, GL_POSITION, position3);
+  glLightfv(GL_LIGHT4, GL_SPOT_DIRECTION, pos3);
   glLightfv(GL_LIGHT1, GL_DIFFUSE, temp);
+  glLightfv(GL_LIGHT4, GL_DIFFUSE, temp);
   glLightfv(GL_LIGHT2, GL_DIFFUSE, tem);
   glLightfv(GL_LIGHT3, GL_DIFFUSE, tem);
   glLightfv(GL_LIGHT1, GL_SPECULAR, temp);
+  glLightfv(GL_LIGHT4, GL_SPECULAR, temp);
   glLightfv(GL_LIGHT2, GL_SPECULAR, tem);
   glLightfv(GL_LIGHT3, GL_SPECULAR, tem);
-  glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 80.0);
-  glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 80.0);
+  glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 180.0);
+  glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 180.0);
+  glLightf(GL_LIGHT4, GL_SPOT_CUTOFF, 180.0);
   glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 50.0);
   glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 50.0);
   glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
@@ -252,7 +262,8 @@ void render_drawing(GLFWwindow* window)
     glPushMatrix();
         if(camera==1)
         {
-			glTranslatef(0,-5,-20);
+			glTranslatef(0,0,cam_z);
+			glRotatef(360-cam_ay,0,1,0);
 		}
 		if(camera==2)
 		{
@@ -273,7 +284,7 @@ void render_drawing(GLFWwindow* window)
         glBindTexture(GL_TEXTURE_2D,skyt[0]);
         glPushMatrix();
             glTranslatef(0,-5,0);
-            drawHemisphere(100,30,30,30,30,-1);
+            drawCylinder(100,0,300,30,30,30,30,-1);
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
         glEnable(GL_TEXTURE_2D);
