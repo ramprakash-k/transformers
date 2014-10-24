@@ -53,7 +53,7 @@ void lights(void)
 
   GLfloat temp[]={1.0,1.0,1.0,1.0};
   GLfloat temp1[]={0,0,0,0};
-  GLfloat tem[]={1,0.5,0,1};
+  GLfloat tem[]={1,1,0,1};
   glEnable(GL_LIGHTING);
   if(light0) glEnable(GL_LIGHT0);
   else glDisable(GL_LIGHT0);
@@ -74,8 +74,8 @@ void lights(void)
   glLightfv(GL_LIGHT1, GL_SPECULAR, temp);
   glLightfv(GL_LIGHT2, GL_SPECULAR, tem);
   glLightfv(GL_LIGHT3, GL_SPECULAR, tem);
-  glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 180.0);
-  glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 180.0);
+  glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 80.0);
+  glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 80.0);
   glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 50.0);
   glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 50.0);
   glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
@@ -279,10 +279,17 @@ void render_drawing(GLFWwindow* window)
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D,grasst[0]);
         glPushMatrix();
-            glTranslatef(0,-5,0);
-            glRotatef(180,1,0,0);
-            GLUquadric* quad=gluNewQuadric();
-            drawCylinder(100,0,0.1,30,30,30,30,1);
+			glBegin(GL_QUADS);
+			glNormal3f(0,1,0);
+			for(int i=1;i<=10;i++)
+			for(int j=1;j<=10;j++)
+			{
+				glTexCoord2f(0,1);glVertex3f(-100+20*(i-1),-5,-100+20*j);
+				glTexCoord2f(0,0);glVertex3f(-100+20*(i-1),-5,-100+20*(j-1));
+				glTexCoord2f(1,0);glVertex3f(-100+20*i,-5,-100+20*(j-1));
+				glTexCoord2f(1,1);glVertex3f(-100+20*i,-5,-100+20*j);
+			}
+			glEnd();
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
         glTranslatef(pos_x,0,pos_z);
