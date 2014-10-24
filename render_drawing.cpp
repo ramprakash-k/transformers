@@ -115,12 +115,14 @@ void DrawRobot(void)
 						glRotatef(20,-1,0,0);
 						if(headlight)
 						{
+							glPushMatrix();
 							glTranslatef(-0.24,-0.2,0.24);
 							glRotatef(20,-1,1,-1);
 							glRotatef(150,0,0,1);
 							SetMaterial(mat_specularYELLOW, mat_ambientYELLOW, mat_diffuseYELLOW, mat_shininessYELLOW);
 							glColor3f(1,1,0);
 							drawCylinder(0.1,0,0.001,10,10,10,10,1);
+							glPopMatrix();
 						}
 						glLightfv(GL_LIGHT2, GL_POSITION, pos1);
 						glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, pos2);
@@ -139,12 +141,14 @@ void DrawRobot(void)
 						glRotatef(20,-1,0,0);
 						if(headlight)
 						{
+							glPushMatrix();
 							glTranslatef(-0.24,-0.2,0.24);
 							glRotatef(20,-1,1,-1);
 							glRotatef(150,0,0,1);
 							SetMaterial(mat_specularYELLOW, mat_ambientYELLOW, mat_diffuseYELLOW, mat_shininessYELLOW);
 							glColor3f(1,1,0);
 							drawCylinder(0.1,0,0.001,10,10,10,10,1);
+							glPopMatrix();
 						}
 						glLightfv(GL_LIGHT3, GL_POSITION, pos1);
 						glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, pos2);
