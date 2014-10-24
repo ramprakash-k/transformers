@@ -71,6 +71,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			light1=!light1;
 		}
+		if (key == GLFW_KEY_F1)
+		{
+			headlight=!headlight;
+		}
 		if (key == GLFW_KEY_H)
 		{
 			head_pop+=angle_step;

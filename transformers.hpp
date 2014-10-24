@@ -11,4 +11,9 @@ extern GLfloat mat_ambientWHITE[];
 extern GLfloat mat_diffuseWHITE[];
 extern GLfloat mat_shininessWHITE[];
 
+extern GLfloat mat_specularYELLOW[];
+extern GLfloat mat_ambientYELLOW[];
+extern GLfloat mat_diffuseYELLOW[];
+extern GLfloat mat_shininessYELLOW[];
+
 #endif // TRANSFORMERS_HPP

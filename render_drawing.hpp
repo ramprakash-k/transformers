@@ -24,6 +24,7 @@ extern float cam_x,cam_z,cam_ay;
 
 extern bool light0;
 extern bool light1;
+extern bool headlight;
 
 extern GLuint armort[1];
 extern GLuint headt[1];

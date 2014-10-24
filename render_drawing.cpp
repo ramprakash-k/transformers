@@ -33,6 +33,7 @@ float cam_x=0.0f,cam_z=-0.0f,cam_ay=0.0f;
 
 bool light0=true;
 bool light1=true;
+bool headlight=false;
 
 GLuint armort[1];
 GLuint headt[1];
@@ -46,11 +47,14 @@ void lights(void)
   GLfloat position2[] =  {0.0, 0.0, -90, 1.0};
 
   GLfloat temp[]={1.0,1.0,1.0,1.0};
+  GLfloat tem[]={1,1,0,1};
   glEnable(GL_LIGHTING);
   if(light0) glEnable(GL_LIGHT0);
   else glDisable(GL_LIGHT0);
   if(light1) glEnable(GL_LIGHT1);
   else glDisable(GL_LIGHT1);
+  if(headlight){glEnable(GL_LIGHT2);glEnable(GL_LIGHT3);}
+  else {glDisable(GL_LIGHT2);glDisable(GL_LIGHT3);}
   glEnable(GL_NORMALIZE);
   glDepthFunc(GL_LESS);
 
@@ -58,15 +62,23 @@ void lights(void)
   glLightfv(GL_LIGHT1, GL_POSITION, position2);
   glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, position1);
   glLightfv(GL_LIGHT1, GL_DIFFUSE, temp);
+  glLightfv(GL_LIGHT2, GL_DIFFUSE, tem);
+  glLightfv(GL_LIGHT3, GL_DIFFUSE, tem);
   glLightfv(GL_LIGHT1, GL_SPECULAR, temp);
+  glLightfv(GL_LIGHT2, GL_SPECULAR, tem);
+  glLightfv(GL_LIGHT3, GL_SPECULAR, tem);
   glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 80.0);
   glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 80.0);
+  glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 40.0);
+  glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 40.0);
   glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
   glEnable(GL_LIGHTING);
 }
 
 void DrawRobot(void)
 {
+	GLfloat pos1[]={-0.24,-0.2,0.24,1};
+	GLfloat pos2[]={0,0,1,1};
     glPushMatrix();
         glRotatef(bust_angle_y,0,1,0);
         glRotatef(bust_angle_x,1,0,0);
@@ -82,6 +94,20 @@ void DrawRobot(void)
                 glPushMatrix();
                     glTranslatef(0,0.26,0.8);
                     glRotatef((180-((head_pop<0)?-head_pop:head_pop))*7/18,-1,0,0);
+                    glPushMatrix();
+						glRotatef(20,-1,0,0);
+						if(headlight)
+						{
+							glTranslatef(-0.24,-0.2,0.24);
+							glRotatef(20,-1,1,-1);
+							glRotatef(150,0,0,1);
+							SetMaterial(mat_specularYELLOW, mat_ambientYELLOW, mat_diffuseYELLOW, mat_shininessYELLOW);
+							glColor3f(1,1,0);
+							drawCylinder(0.1,0,0.001,10,10,10,10,1);
+						}
+						glLightfv(GL_LIGHT2, GL_POSITION, pos1);
+						glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, pos2);
+					glPopMatrix();
                     glCallList(d_head);
                 glPopMatrix();
             glPopMatrix();
@@ -92,6 +118,20 @@ void DrawRobot(void)
                 glPushMatrix();
                     glTranslatef(0,0.26,0.8);
                     glRotatef((180-((head_pop<0)?-head_pop:head_pop))*7/18,-1,0,0);
+                    glPushMatrix();
+						glRotatef(20,-1,0,0);
+						if(headlight)
+						{
+							glTranslatef(-0.24,-0.2,0.24);
+							glRotatef(20,-1,1,-1);
+							glRotatef(150,0,0,1);
+							SetMaterial(mat_specularYELLOW, mat_ambientYELLOW, mat_diffuseYELLOW, mat_shininessYELLOW);
+							glColor3f(1,1,0);
+							drawCylinder(0.1,0,0.001,10,10,10,10,1);
+						}
+						glLightfv(GL_LIGHT3, GL_POSITION, pos1);
+						glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, pos2);
+					glPopMatrix();
                     glCallList(d_head);
                 glPopMatrix();
             glPopMatrix();
