@@ -51,25 +51,23 @@ GLuint skyt[1];
 
 void lights(void)
 {
-  GLfloat position[] =  {0.0, 0.0, 8.0, 1.0};
-  glRotatef(lightturn1, 1.0, 0.0, 0.0);
-  glRotatef(lightturn, 0.0, 1.0, 0.0);
-
+  GLfloat position1[] =  {0.0, 0.0, 14, 1.0};
+  GLfloat position2[] =  {0.0, 0.0, -14, 1.0};
+  
+  GLfloat temp[]={1.0,1.0,1.0,1.0};
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
+  glEnable(GL_LIGHT1);
   glEnable(GL_NORMALIZE);
   glDepthFunc(GL_LESS);
 
-  glLightfv(GL_LIGHT0, GL_POSITION, position);
+  glLightfv(GL_LIGHT0, GL_POSITION, position1);
+  glLightfv(GL_LIGHT1, GL_POSITION, position2);
+  glLightfv(GL_LIGHT1, GL_DIFFUSE, temp);
+  glLightfv(GL_LIGHT1, GL_SPECULAR, temp);
   glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 180.0);
+  glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 180.0);
   glLightModelf(GL_LIGHT_MODEL_COLOR_CONTROL,GL_SEPARATE_SPECULAR_COLOR);
-
-  glTranslatef(0.0, 0.0, 5.0);
-  glDisable(GL_LIGHTING);
-  glColor3f(1,1,0);
-  GLUquadric* quad=gluNewQuadric();
-  gluQuadricDrawStyle(quad,GLU_LINE);
-  gluSphere(quad,0.02,4,2);
   glEnable(GL_LIGHTING);
 }
 
@@ -226,15 +224,15 @@ void render_drawing(GLFWwindow* window)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glPushMatrix();
 		glTranslatef(0,0,-10);
-		glRotatef(360-cam_ay,0,1,0);
 		glTranslatef(-cam_x,0,-cam_z);
+		glRotatef(360-cam_ay,0,1,0);
 		SetMaterial(mat_specularWHITE, mat_ambientWHITE, mat_diffuseWHITE, mat_shininessWHITE);
 		glColor3ub(255,255,255);
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D,skyt[0]);
 		glPushMatrix();
 			glTranslatef(0,-5,0);
-			drawHemisphere(15.0f,30,30,30,30,-1);
+			drawCylinder(100,0,200,30,30,30,30,-1);
 		glPopMatrix();
 		glDisable(GL_TEXTURE_2D);
 		glEnable(GL_TEXTURE_2D);
@@ -243,7 +241,7 @@ void render_drawing(GLFWwindow* window)
 			glTranslatef(0,-5,0);
 			glRotatef(180,1,0,0);
 			GLUquadric* quad=gluNewQuadric();
-			drawCylinder(15,0,0.1,30,30,30,30);
+			drawCylinder(100,0,0.1,30,30,30,30,1);
 		glPopMatrix();
 		glDisable(GL_TEXTURE_2D);
 		glPushMatrix();

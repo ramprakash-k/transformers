@@ -38,7 +38,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport( 0, 0, width, height );
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    gluPerspective(90.0f,(GLfloat)width/(GLfloat)height,0.1f,50.0f);
+    gluPerspective(90.0f,(GLfloat)width/(GLfloat)height,0.1f,2000.0f);
     glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	//~ glTranslatef(0,0,-10);
@@ -58,7 +58,7 @@ int state=1;
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 //!Close the window if the ESC key was pressed
-	float piover180 = 3.14159265358979324/180;
+	float piover180 = 3.14159265358979324/180.0;
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
     if ((action ==  GLFW_PRESS || action == GLFW_REPEAT) && (state == 1 || state == 3))
@@ -386,13 +386,13 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			lightturn1+=5 % 360;
 		if (key == GLFW_KEY_N)
 		{
-			cam_x-=(float)sin(cam_ay*piover180) * 0.15f;
-			cam_z-=(float)cos(cam_ay*piover180) * 0.15f;
+			cam_x-=0;
+			cam_z-=1;
 		}
 		if (key == GLFW_KEY_M)
 		{
-			cam_x+=(float)sin(cam_ay*piover180) * 0.15f;
-			cam_z+=(float)cos(cam_ay*piover180) * 0.15f;
+			cam_x+=0;
+			cam_z+=1;
 		}
 		if (key == GLFW_KEY_V)
 			cam_ay-=1.0f;

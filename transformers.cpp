@@ -47,7 +47,7 @@ void drawHemisphere(float radius, int longSlices, int latSlices,int p,int q,int 
    }
 }
 
-void drawCylinder(float br,float tr, float h,int lon,int lat,int p,int q)
+void drawCylinder(float br,float tr, float h,int lon,int lat,int p,int q,int in)
 {
 	int i,j;
 	float PI=3.14159265358979324;
@@ -58,16 +58,16 @@ void drawCylinder(float br,float tr, float h,int lon,int lat,int p,int q)
       for(i = 0; i <= p; i++)
       {
 		 glTexCoord2f((float)i*1.0/p, (float)(j+1)*1.0/q);
-		 glNormal3f( cos( 2.0 * ((float)i)/lon * PI ),
-                     (tr-br)/h,
-					 sin( 2.0 * ((float)i)/lon * PI ) );
+		 glNormal3f( in*cos( 2.0 * ((float)i)/lon * PI ),
+                     in*(tr-br)/h,
+					 in*sin( 2.0 * ((float)i)/lon * PI ) );
          glVertex3f( (br + (j+1)*(tr-br)/lat) * cos( 2.0 * ((float)i)/lon * PI ),
                      (j+1)*h/lat,
 					 (br + (j+1)*(tr-br)/lat) * sin( 2.0 * ((float)i)/lon * PI ) );
 		 glTexCoord2f((float)i*1.0/p, (float)j*1.0/q);
-		 glNormal3f( cos( 2.0 * ((float)i)/lon * PI ),
-                     (tr-br)/h,
-					 sin( 2.0 * ((float)i)/lon * PI ) );
+		 glNormal3f( in*cos( 2.0 * ((float)i)/lon * PI ),
+                     in*(tr-br)/h,
+					 in*sin( 2.0 * ((float)i)/lon * PI ) );
          glVertex3f( (br + j*(tr-br)/lat) * cos( 2.0 * ((float)i)/lon * PI ),
                      j*h/lat,
 					 (br + j*(tr-br)/lat) * sin( 2.0 * ((float)i)/lon * PI ) );
@@ -178,7 +178,7 @@ void struct_torso(void)
 		glTranslatef(0,-0.9,0);
 		glRotatef(180,0,0,1);
 		glScalef(1.6,1.5,0.75);
-		drawCylinder(0.1854,0.1854,0.35,10,5,5,5);
+		drawCylinder(0.1854,0.1854,0.35,10,5,5,5,1);
 	glPopMatrix();
 	glEndList();
 		// Torso
@@ -222,13 +222,13 @@ void struct_torso(void)
 		glEnd();
 		glScalef(1,1,0.36);
 		glRotatef(180,1,0,0);
-		drawCylinder(1.08,0.2,1.6,20,5,10,5);
+		drawCylinder(1.08,0.2,1.6,20,5,10,5,1);
 	glPopMatrix();
 	glPushMatrix();
 		glTranslatef(0,-0.9,-0.13);
 		glRotatef(-150,1,0,0);
 		glRotatef(180,0,1,0);
-		drawCylinder(0.3,0.3,0.8,20,5,10,5);
+		drawCylinder(0.3,0.3,0.8,20,5,10,5,1);
 		glBegin(GL_QUADS);
 			glNormal3f(0,0,-1);
 			glVertex3f(0.3,0,0);
@@ -393,7 +393,7 @@ void struct_head(void)
 			glEnable(GL_TEXTURE_2D);
 			glRotatef(-90,0,1,0);
 			glBindTexture(GL_TEXTURE_2D,headt[0]);
-			drawCylinder(0.2,0.1,0.2,10,5,10,5);
+			drawCylinder(0.2,0.1,0.2,10,5,10,5,1);
 			glDisable(GL_TEXTURE_2D);
 		glPopMatrix();
 		glPushMatrix();
@@ -508,7 +508,7 @@ void struct_thigh(void)
 		glColor3f(1.0,0.5,0.0);
 		glRotatef(-180,0,1,0);
 		drawHemisphere(0.25,20,20,5,20,1);
-		drawCylinder(0.25,0.25,-1,20,20,5,20);
+		drawCylinder(0.25,0.25,-1,20,20,5,20,1);
 		glPushMatrix();
 			glTranslatef(0,0,0.25);
 			glBegin(GL_QUADS);
@@ -589,12 +589,12 @@ void struct_leg(void)
 		gluDisk(quad,0,0.2,10,10);
 	glPopMatrix();
 	glPushMatrix();
-		drawCylinder(0.25,0.25,-1,30,30,30,30);
-		drawCylinder(0.25,0.25,-1.3,30,30,15,30);
+		drawCylinder(0.25,0.25,-1,30,30,30,30,1);
+		drawCylinder(0.25,0.25,-1.3,30,30,15,30,1);
 		glTranslatef(0,-1.3,0);
-		drawCylinder(0.25,0.25,-0.2,20,20,2,25);
+		drawCylinder(0.25,0.25,-0.2,20,20,2,25,1);
 		glRotatef(216,0,1,0);
-		drawCylinder(0.25,0.25,-0.2,20,20,2,25);
+		drawCylinder(0.25,0.25,-0.2,20,20,2,25,1);
 	glPopMatrix();
 	glEndList();
 }
@@ -616,7 +616,7 @@ void struct_foot(void)
 	glPopMatrix();
 	glPushMatrix();
 		glScalef(1,1.5,1);
-		drawCylinder(0.2,0.15,0.4,20,20,10,20);
+		drawCylinder(0.2,0.15,0.4,20,20,10,20,1);
 		glPushMatrix();
 			glTranslatef(0,0.4,0);
 			glBegin(GL_TRIANGLE_FAN);
@@ -636,7 +636,7 @@ void struct_foot(void)
 			glVertex3f(-0.2,0,0);
 		glEnd();
 		glScalef(1,-1,1);
-		drawCylinder(0.2,0.15,0.4,20,20,10,20);
+		drawCylinder(0.2,0.15,0.4,20,20,10,20,1);
 		glBegin(GL_QUADS);
 			glNormal3f(0,0,-1);
 			glVertex3f(0.2,0,0);
@@ -646,7 +646,7 @@ void struct_foot(void)
 		glEnd();
 		glPushMatrix();
 			glTranslatef(0,0.4,0);
-			drawCylinder(0.15,0,0.2,20,20,10,20);
+			drawCylinder(0.15,0,0.2,20,20,10,20,1);
 			glBegin(GL_TRIANGLE_STRIP);
 				glNormal3f(0,0,-1);
 				glVertex3f(0.15,0,0);
@@ -655,7 +655,7 @@ void struct_foot(void)
 			glEnd();
 			glTranslatef(0,0.1,0.05);
 			glRotatef(70,1,0,0);
-			drawCylinder(0.05,0,0.15,20,20,20,20);
+			drawCylinder(0.05,0,0.15,20,20,20,20,1);
 		glPopMatrix();
 	glPopMatrix();
 	glEndList();
