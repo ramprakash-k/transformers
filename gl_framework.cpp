@@ -271,19 +271,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			}
 
 			if(state == 1) {
-				right_arm_angle += 3*leg_dir;
-				left_arm_angle -= 3*leg_dir;
-
-				if(right_arm_angle>15) { leg_dir=-1; }
-				if(left_arm_angle>15) { leg_dir=1; }
+				right_arm_angle -= 3*leg_dir;
+				left_arm_angle += 3*leg_dir;
 
 				right_thigh_angle += 3*leg_dir;
 				left_thigh_angle -= 3*leg_dir;
 
 				if(right_thigh_angle>15) { leg_dir=-1; }
 				if(left_thigh_angle>15) { leg_dir=1; }
-
-				std::cout<<right_thigh_angle<<" "<<left_thigh_angle<<std::endl;
 			}
 
 			if(pos_x*pos_x+pos_z*pos_z>8100)
@@ -306,12 +301,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			}
 
 			if(state == 1) {
-				right_arm_angle -= 3*leg_dir;
-				left_arm_angle += 3*leg_dir;
-
-				if(right_arm_angle>15) { leg_dir=1; }
-				if(left_arm_angle>15) { leg_dir=-1; }
-
+				right_arm_angle += 3*leg_dir;
+				left_arm_angle -= 3*leg_dir;
+				
 				right_thigh_angle -= 3*leg_dir;
 				left_thigh_angle += 3*leg_dir;
 
