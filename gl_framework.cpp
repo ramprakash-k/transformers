@@ -53,6 +53,8 @@ int state=1;
 //3 -> dino
 //4 -> trans-robot
 
+int leg_dir=1;
+
 //!GLFW keyboard callback
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
@@ -257,8 +259,28 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 		if (glfwGetKey(window,GLFW_KEY_UP)==GLFW_PRESS)
 		{
-			pos_x+=cos(dir*piover180);
-			pos_z-=sin(dir*piover180);
+			pos_x+=cos(dir*piover180)/2;
+			pos_z-=sin(dir*piover180)/2;
+
+			if(state == 3) {
+				right_arm_angle += 3*leg_dir;
+				left_arm_angle -= 3*leg_dir;
+
+				if(right_arm_angle>315) { leg_dir=-1; }
+				if(left_arm_angle>315) { leg_dir=1; }
+			}
+
+			if(state == 1) {
+				right_arm_angle -= 3*leg_dir;
+				left_arm_angle += 3*leg_dir;
+
+				right_thigh_angle += 3*leg_dir;
+				left_thigh_angle -= 3*leg_dir;
+
+				if(right_thigh_angle>15) { leg_dir=-1; }
+				if(left_thigh_angle>15) { leg_dir=1; }
+			}
+
 			if(pos_x*pos_x+pos_z*pos_z>8100)
 			{
 				pos_x-=2*cos(dir*piover180);
@@ -267,8 +289,28 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 		if (glfwGetKey(window,GLFW_KEY_DOWN)==GLFW_PRESS)
 		{
-			pos_x-=cos(dir*piover180);
-			pos_z+=sin(dir*piover180);
+			pos_x-=cos(dir*piover180)/2;
+			pos_z+=sin(dir*piover180)/2;
+
+			if(state == 3) {
+				right_arm_angle -= 3*leg_dir;
+				left_arm_angle += 3*leg_dir;
+
+				if(right_arm_angle>315) { leg_dir=1; }
+				if(left_arm_angle>315) { leg_dir=-1; }
+			}
+
+			if(state == 1) {
+				right_arm_angle += 3*leg_dir;
+				left_arm_angle -= 3*leg_dir;
+				
+				right_thigh_angle -= 3*leg_dir;
+				left_thigh_angle += 3*leg_dir;
+
+				if(right_thigh_angle>15) { leg_dir=1; }
+				if(left_thigh_angle>15) { leg_dir=-1; }
+			}
+
 			if(pos_x*pos_x+pos_z*pos_z>8100)
 			{
 				pos_x+=2*cos(dir*piover180);

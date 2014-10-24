@@ -346,25 +346,43 @@ void transform_dino(GLFWwindow* window)
 
 void transform_robot(GLFWwindow* window)
 {
-    bust_angle_y=0.0f;
-    bust_angle_x=0.0f;
-    armor_angle=0.0f;
-    head_pop=0.0f;
-    right_arm_angle=0.0f;
-    left_arm_angle=0.0f;
-    right_forearm_angle=0.0f;
-    left_forearm_angle=0.0f;
-    left_thigh_angle=0.0f;
-    right_thigh_angle=0.0f;
-    right_leg_angle=0.0f;
-    left_leg_angle=0.0f;
-    right_foot_angle=90.0f;
-    left_foot_angle=90.0f;
-    right_wrist_angle=0.0f;
-    left_wrist_angle=0.0f;
-    right_d_leg_angle=0.0f;
-    left_d_leg_angle=0.0f;
-    height=-1.2f;
-    render_drawing(window);
-    glfwSwapBuffers(window);
+	bool flag=true;
+	while(flag)
+	{
+		flag=false;
+		if(bust_angle_x>0){bust_angle_x-=1;flag=true;}
+		if(bust_angle_x<0){bust_angle_x+=1;flag=true;}
+		if(bust_angle_y>0){bust_angle_y-=3;flag=true;}
+		if(bust_angle_y<0){bust_angle_y+=3;flag=true;}
+		if(armor_angle>0){armor_angle-=3;flag=true;}
+		if(head_pop>0){head_pop-=3;flag=true;}
+		if(head_pop<0){head_pop+=3;flag=true;}
+		if(right_arm_angle>0){right_arm_angle-=3;flag=true;}
+		if(right_forearm_angle<0){right_forearm_angle+=3;flag=true;}
+		if(right_forearm_angle>0){right_forearm_angle-=3;flag=true;}
+		if(left_arm_angle>0){left_arm_angle-=3;flag=true;}
+		if(left_forearm_angle<0){left_forearm_angle+=3;flag=true;}
+		if(left_forearm_angle>0){left_forearm_angle-=3;flag=true;}
+		if(left_thigh_angle>0){left_thigh_angle-=3;flag=true;}
+		if(left_thigh_angle<0){left_thigh_angle+=3;flag=true;}
+		if(right_thigh_angle>0){right_thigh_angle-=3;flag=true;}
+		if(right_thigh_angle<0){right_thigh_angle+=3;flag=true;}
+		if(left_leg_angle<0){left_leg_angle+=3;flag=true;}
+		if(left_leg_angle>0){left_leg_angle-=3;flag=true;}
+		if(right_leg_angle<0){right_leg_angle+=3;flag=true;}
+		if(right_leg_angle>0){right_leg_angle-=3;flag=true;}
+		if(right_wrist_angle>0){right_wrist_angle-=3;flag=true;}
+		if(left_wrist_angle>0){left_wrist_angle-=3;flag=true;}
+		if(right_d_leg_angle>0){right_d_leg_angle-=3;flag=true;}
+		if(left_d_leg_angle>0){left_d_leg_angle-=3;flag=true;}
+		if(right_foot_angle>90){right_foot_angle-=3;flag=true;}
+		if(right_foot_angle<90){right_foot_angle+=3;flag=true;}
+		if(left_foot_angle>90){left_foot_angle-=3;flag=true;}
+		if(left_foot_angle<90){left_foot_angle+=3;flag=true;}
+		if(height>-1.19){height-=0.02;flag=true;}
+		if(height<-1.21){height+=0.02;flag=true;}
+		render_drawing(window);
+		glfwSwapBuffers(window);
+	}
+    
 }
