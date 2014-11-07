@@ -76,6 +76,7 @@ void loadKeyframe(GLFWwindow* window)
 	glfwSetTime(0);
 	render_drawing(window);
 	glfwSwapBuffers(window);
+	capture_frame(frame_no++);
 	int st,cam;
 	float ra,rf,la,lf,rt,lt,rl,ll,cx,cz,cy,px,pz,d;
 	bool l0,l1,l2,h,m;
@@ -94,6 +95,7 @@ void loadKeyframe(GLFWwindow* window)
 					while(glfwGetTime()<targetTime);
 					targetTime = targetTime+1.0/fps;
 					glfwSwapBuffers(window);
+					capture_frame(frame_no++);
 				}
 			}
 			flag=false;move=false;rot=false;
@@ -242,6 +244,7 @@ void loadKeyframe(GLFWwindow* window)
 				while(glfwGetTime()<targetTime);
 				targetTime = targetTime+1.0/fps;
 				glfwSwapBuffers(window);
+				capture_frame(frame_no++);
 			}
 		}
 	}
@@ -259,7 +262,7 @@ void capture_frame(unsigned int framenum)
 	glPixelStoref(GL_PACK_ALIGNMENT,1);//for word allignment
 	glReadPixels(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, pRGB);
 	char filename[200];
-	sprintf(filename,"frame_%04d.ppm",framenum);
+	sprintf(filename,"frames/frame_%04d.ppm",framenum);
 	std::ofstream out(filename, std::ios::out);
 	out<<"P6"<<std::endl;
 	out<<SCREEN_WIDTH<<" "<<SCREEN_HEIGHT<<" 255"<<std::endl;

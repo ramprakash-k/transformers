@@ -30,6 +30,8 @@ extern bool light1;
 extern bool light2;
 extern bool headlight;
 
+extern int frame_no;
+
 extern GLuint armort[1];
 extern GLuint headt[1];
 extern GLuint dinot[1];

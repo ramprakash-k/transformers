@@ -37,6 +37,8 @@ bool light1=true;
 bool light2=true;
 bool headlight=false;
 
+int frame_no=1;
+
 GLuint armort[1];
 GLuint headt[1];
 GLuint dinot[1];
@@ -366,8 +368,11 @@ void transform_dino(GLFWwindow* window,bool play,int fps,double &tartime)
 			{
 				while(glfwGetTime()<tartime);
 				tartime = tartime+1.0/fps;
+				glfwSwapBuffers(window);
+				capture_frame(frame_no++);
 			}
-			glfwSwapBuffers(window);
+			else
+				glfwSwapBuffers(window);
 		}
     }
 }
@@ -416,8 +421,11 @@ void transform_robot(GLFWwindow* window,bool play,int fps,double &tartime)
 			{
 				while(glfwGetTime()<tartime);
 				tartime = tartime+1.0/fps;
+				glfwSwapBuffers(window);
+				capture_frame(frame_no++);
 			}
-			glfwSwapBuffers(window);
+			else
+				glfwSwapBuffers(window);
 		}
 	}
 
