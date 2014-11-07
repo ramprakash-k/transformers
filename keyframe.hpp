@@ -2,6 +2,7 @@
 #define KEYFRAME_HPP
 
 void saveKeyframe();
+void loadKeyframe(GLFWwindow* window);
 
 void capture_frame(unsigned int framenum);
 

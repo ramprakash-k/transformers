@@ -1,13 +1,17 @@
-#include "keyframe.hpp"
-#include "render_drawing.hpp"
-
 #include <iostream>
 #include <fstream>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include "keyframe.hpp"
+#include "render_drawing.hpp"
+#include "gl_framework.hpp"
 
-void saveKeyframe() {
-	ofstream file;
-	file.open("keyframes.txt", ios::app);
+void saveKeyframe()
+{
+	std::ofstream file;
+	file.open("keyframes.txt", std::ios::app);
 	file<<
+		csX75::state<<" "<<
 		bust_angle_y<<" "<<
 		bust_angle_x<<" "<<
 		armor_angle<<" "<<
@@ -38,8 +42,56 @@ void saveKeyframe() {
 		light1<<" "<<
 		light2<<" "<<
 		headlight;
-	file<<endl;
+	file<<std::endl;
 	file.close();
+
+}
+
+void loadKeyframe(GLFWwindow* window)
+{
+	std::ifstream file("keyframes.txt");
+	file>>
+		csX75::state>>
+		bust_angle_y>>
+		bust_angle_x>>
+		armor_angle>>
+		head_pop>>
+		right_arm_angle>>
+		left_arm_angle>>
+		right_forearm_angle>>
+		left_forearm_angle>>
+		left_thigh_angle>>
+		right_thigh_angle>>
+		right_leg_angle>>
+		left_leg_angle>>
+		right_foot_angle>>
+		left_foot_angle>>
+		left_d_leg_angle>>
+		right_wrist_angle>>
+		left_wrist_angle>>
+		right_d_leg_angle>>
+		height>>
+		cam_x>>
+		cam_z>>
+		cam_ay>>
+		pos_x>>
+		pos_z>>
+		dir>>
+		camera>>
+		light0>>
+		light1>>
+		light2>>
+		headlight;
+	render_drawing(window);
+	glfwSwapBuffers(window);
+	usleep(fps);
+	while(file.good())
+	{
+		
+		
+		render_drawing(window);
+		glfwSwapBuffers(window);
+	}
 
 }
 

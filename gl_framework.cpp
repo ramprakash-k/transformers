@@ -1,14 +1,14 @@
 #include <math.h>
 #include <unistd.h>
 #include "gl_framework.hpp"
+#include "keyframe.hpp"
 #include "render_drawing.hpp"
 #include "transformers.hpp"
 #include "image.hpp"
+#define angle_step 3.0f
 
 namespace csX75
 {
-int win_width;
-int win_height;
 
 //! Initialize GL State
 void initGL(void)
@@ -45,15 +45,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     win_width = width;
     win_height = height;
 }
-
-#define angle_step 3.0f
-int state=1;
-//1 -> robot
-//2 -> trans-dino
-//3 -> dino
-//4 -> trans-robot
-
-int leg_dir=1;
 
 //!GLFW keyboard callback
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
