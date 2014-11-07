@@ -54,12 +54,20 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 //!GLFW keyboard callback
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+	// if(action ==  GLFW_PRESS || action == GLFW_REPEAT) {
+	// 	std::cout<<key<<" "<<(mods & GLFW_MOD_CONTROL)<<" "<<(GLFW_MOD_CONTROL)<<" "<<((mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)<<std::endl;
+	// }
 //!Close the window if the ESC key was pressed
 	float piover180 = 3.14159265358979324/180.0;
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
     if ((action ==  GLFW_PRESS || action == GLFW_REPEAT) && (state == 1 || state == 3))
     {
+    	// Lights
+    	if (key == GLFW_KEY_F1)
+		{
+			headlight=!headlight;
+		}
     	if (key == GLFW_KEY_F2)
 		{
 			light0=!light0;
@@ -72,10 +80,77 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			light2=!light2;
 		}
-		if (key == GLFW_KEY_F1)
+
+		// Right Arm
+		if (key == GLFW_KEY_1 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
-			headlight=!headlight;
+			if(right_arm_angle==0.0f)right_arm_angle=360.0f;
+			right_arm_angle-=angle_step;
 		}
+		else if (key == GLFW_KEY_1 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			right_arm_angle+=angle_step;
+			if(right_arm_angle==360.0f)right_arm_angle=0.0f;
+		}
+
+		if (key == GLFW_KEY_Q && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			right_arm_angle2-=angle_step;
+			if(right_arm_angle2<0.0f)right_arm_angle2=0.0f;
+		}
+		else if (key == GLFW_KEY_Q && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		{
+			right_arm_angle2+=angle_step;
+			if(right_arm_angle2>180.0f)right_arm_angle2=180.0f;
+		}
+
+		// Right forearm
+		if (key == GLFW_KEY_2 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		{
+			right_forearm_angle-=angle_step;
+			if (right_forearm_angle<-99.0f) right_forearm_angle=-99.0f;
+		}
+		if (key == GLFW_KEY_2 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			right_forearm_angle+=angle_step;
+			if (right_forearm_angle>99.0f) right_forearm_angle=99.0f;
+		}
+
+		// Left Arm
+		if (key == GLFW_KEY_3 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		{
+			if(left_arm_angle==0.0f)left_arm_angle=360.0f;
+			left_arm_angle-=angle_step;
+		}
+		else if (key == GLFW_KEY_3 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			left_arm_angle+=angle_step;
+			if(left_arm_angle==360.0f)left_arm_angle=0.0f;
+		}
+
+		if (key == GLFW_KEY_E && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			left_arm_angle2-=angle_step;
+			if(left_arm_angle2<0.0f)left_arm_angle2=0.0f;
+		}
+		else if (key == GLFW_KEY_E && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		{
+			left_arm_angle2+=angle_step;
+			if(left_arm_angle2>180.0f)left_arm_angle2=180.0f;
+		}
+
+		// Left forearm
+		if (key == GLFW_KEY_4 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		{
+			left_forearm_angle-=angle_step;
+			if (left_forearm_angle<-99.0f) left_forearm_angle=-99.0f;
+		}
+		if (key == GLFW_KEY_4 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			left_forearm_angle+=angle_step;
+			if (left_forearm_angle>99.0f) left_forearm_angle=99.0f;
+		}
+
 		if (key == GLFW_KEY_H)
 		{
 			head_pop+=angle_step;
@@ -91,146 +166,127 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			armor_angle-=angle_step;
 			if(armor_angle<0.0f)armor_angle=0.0f;
 		}
-		if (key == GLFW_KEY_1)
-		{
-			if(right_arm_angle==0.0f)right_arm_angle=360.0f;
-			right_arm_angle-=angle_step;
-		}
-		if (key == GLFW_KEY_Q)
-		{
-			right_arm_angle+=angle_step;
-			if(right_arm_angle==360.0f)right_arm_angle=0.0f;
-		}
-		if (key == GLFW_KEY_2)
-		{
-			right_forearm_angle-=angle_step;
-			if (right_forearm_angle<-99.0f) right_forearm_angle=-99.0f;
-		}
-		if (key == GLFW_KEY_W)
-		{
-			right_forearm_angle+=angle_step;
-			if (right_forearm_angle>99.0f) right_forearm_angle=99.0f;
-		}
-		if (key == GLFW_KEY_3)
-		{
-			if(left_arm_angle==0.0f)left_arm_angle=360.0f;
-			left_arm_angle-=angle_step;
-		}
-		if (key == GLFW_KEY_E)
-		{
-			left_arm_angle+=angle_step;
-			if(left_arm_angle==360.0f)left_arm_angle=0.0f;
-		}
-		if (key == GLFW_KEY_R)
-		{
-			left_forearm_angle+=angle_step;
-			if (left_forearm_angle>99.0f) left_forearm_angle=99.0f;
-		}
-		if (key == GLFW_KEY_4)
-		{
-			left_forearm_angle-=angle_step;
-			if (left_forearm_angle<-99.0f) left_forearm_angle=-99.0f;
-		}
-		if (key == GLFW_KEY_5)
+
+		// Left thigh
+		if (key == GLFW_KEY_7 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
 			left_thigh_angle-=angle_step;
 			if (left_thigh_angle<-159.0f) left_thigh_angle=-159.0f;
 		}
-		if (key == GLFW_KEY_T)
+		if (key == GLFW_KEY_7 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
 		{
 			left_thigh_angle+=angle_step;
 			if (left_thigh_angle>150.0f) left_thigh_angle=150.0f;
 		}
-		if (key == GLFW_KEY_6)
+
+		// Left leg
+		if (key == GLFW_KEY_8 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
 		{
 			left_leg_angle+=angle_step;
 			if (left_leg_angle>99.0f) left_leg_angle=99.0f;
 		}
-		if (key == GLFW_KEY_Y)
+		if (key == GLFW_KEY_8 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
 			left_leg_angle-=angle_step;
 			if (left_leg_angle<-99.0f) left_leg_angle=-99.0f;
 		}
-		if (key == GLFW_KEY_7)
+
+		// Right thigh
+		if (key == GLFW_KEY_5 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
 			right_thigh_angle-=angle_step;
 			if (right_thigh_angle<-159.0f) right_thigh_angle=-159.0f;
 		}
-		if (key == GLFW_KEY_U)
+		if (key == GLFW_KEY_5 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
 		{
 			right_thigh_angle+=angle_step;
 			if (right_thigh_angle>150.0f) right_thigh_angle=150.0f;
 		}
-		if (key == GLFW_KEY_8)
+
+		// Left leg
+		if (key == GLFW_KEY_6 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
 		{
 			right_leg_angle+=angle_step;
 			if (right_leg_angle>99.0f) right_leg_angle=99.0f;
 		}
-		if (key == GLFW_KEY_I)
+		if (key == GLFW_KEY_6 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
 			right_leg_angle-=angle_step;
 			if (right_leg_angle<-99.0f) right_leg_angle=-99.0f;
 		}
-		if (key == GLFW_KEY_9)
-		{
-			if(right_wrist_angle==0.0f)right_wrist_angle=360.0f;
-			right_wrist_angle-=angle_step;
-		}
-		if (key == GLFW_KEY_O)
-		{
-			right_wrist_angle+=angle_step;
-			if(right_wrist_angle==360.0f)right_wrist_angle=0.0f;
-		}
-		if (key == GLFW_KEY_0)
-		{
-			if(left_wrist_angle==0.0f)left_wrist_angle=360.0f;
-			left_wrist_angle-=angle_step;
-		}
-		if (key == GLFW_KEY_P)
-		{
-			left_wrist_angle+=angle_step;
-			if(left_wrist_angle==360.0f)left_wrist_angle=0.0f;
-		}
-		if (key == GLFW_KEY_A)
-		{
-			right_d_leg_angle+=angle_step;
-			if(right_d_leg_angle>240.0f)right_d_leg_angle=240.0f;
-		}
-		if (key == GLFW_KEY_Z)
-		{
-			right_d_leg_angle-=angle_step;
-			if(right_d_leg_angle<0.0f)right_d_leg_angle=0.0f;
-		}
-		if (key == GLFW_KEY_S)
-		{
-			left_d_leg_angle+=angle_step;
-			if(left_d_leg_angle>240.0f)left_d_leg_angle=240.0f;
-		}
-		if (key == GLFW_KEY_X)
-		{
-			left_d_leg_angle-=angle_step;
-			if(left_d_leg_angle<0.0f)left_d_leg_angle=0.0f;
-		}
-		if (key == GLFW_KEY_J)
+
+		// Right foot
+		if (key == GLFW_KEY_9 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
 		{
 			right_foot_angle+=angle_step;
 			if(right_foot_angle>99.0f)right_foot_angle=99.0f;
 		}
-		if (key == GLFW_KEY_K)
+		if (key == GLFW_KEY_9 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
 			right_foot_angle-=angle_step;
 			if(right_foot_angle<0.0f)right_foot_angle=0.0f;
 		}
-		if (key == GLFW_KEY_L)
+
+		// Left foot
+		if (key == GLFW_KEY_0 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
 		{
 			left_foot_angle+=angle_step;
 			if(left_foot_angle>99.0f)left_foot_angle=99.0f;
 		}
-		if (key == GLFW_KEY_SEMICOLON)
+		if (key == GLFW_KEY_0 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
 			left_foot_angle-=angle_step;
 			if(left_foot_angle<0.0f)left_foot_angle=0.0f;
 		}
+
+		// Right wrist
+		if (key == GLFW_KEY_W && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			if(right_wrist_angle==0.0f)right_wrist_angle=360.0f;
+			right_wrist_angle-=angle_step;
+		}
+		if (key == GLFW_KEY_W && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		{
+			right_wrist_angle+=angle_step;
+			if(right_wrist_angle==360.0f)right_wrist_angle=0.0f;
+		}
+
+		// Left wrist
+		if (key == GLFW_KEY_R && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			if(left_wrist_angle==0.0f)left_wrist_angle=360.0f;
+			left_wrist_angle-=angle_step;
+		}
+		if (key == GLFW_KEY_R && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		{
+			left_wrist_angle+=angle_step;
+			if(left_wrist_angle==360.0f)left_wrist_angle=0.0f;
+		}
+
+		// Right dino leg
+		if (key == GLFW_KEY_A && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		{
+			right_d_leg_angle+=angle_step;
+			if(right_d_leg_angle>240.0f)right_d_leg_angle=240.0f;
+		}
+		if (key == GLFW_KEY_A && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			right_d_leg_angle-=angle_step;
+			if(right_d_leg_angle<0.0f)right_d_leg_angle=0.0f;
+		}
+
+		// Left dino leg
+		if (key == GLFW_KEY_S && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		{
+			left_d_leg_angle+=angle_step;
+			if(left_d_leg_angle>240.0f)left_d_leg_angle=240.0f;
+		}
+		if (key == GLFW_KEY_S && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			left_d_leg_angle-=angle_step;
+			if(left_d_leg_angle<0.0f)left_d_leg_angle=0.0f;
+		}
+
 		if (key == GLFW_KEY_SPACE)
 		{
 			if(state==1)

@@ -17,6 +17,8 @@ float head_angle1=0.0f;
 float head_angle2=0.0f;
 float right_arm_angle=0.0f;
 float left_arm_angle=0.0f;
+float right_arm_angle2=0.0f;
+float left_arm_angle2=0.0f;
 float right_forearm_angle=0.0f;
 float left_forearm_angle=0.0f;
 float left_thigh_angle=0.0f;
@@ -185,6 +187,7 @@ void DrawRobot(void)
         glPushMatrix();
             glTranslatef(-1.4*5.0/6.0,0,0);
             glRotatef(right_arm_angle,1,0,0);
+            glRotatef(-right_arm_angle2,0,0,1);
             glCallList(upper_arm);
             glPushMatrix();
                 glTranslatef(0,-1.55,0);
@@ -207,6 +210,7 @@ void DrawRobot(void)
             glTranslatef(1.4*5.0/6.0,0,0);
             glScalef(-1,1,1);
             glRotatef(left_arm_angle,1,0,0);
+            glRotatef(-left_arm_angle2,0,0,1);
             glCallList(upper_arm);
             glPushMatrix();
                 glTranslatef(0,-1.55,0);

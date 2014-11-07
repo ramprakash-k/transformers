@@ -7,6 +7,8 @@ extern float armor_angle;
 extern int head_pop;
 extern float right_arm_angle;
 extern float left_arm_angle;
+extern float right_arm_angle2;
+extern float left_arm_angle2;
 extern float right_forearm_angle;
 extern float left_forearm_angle;
 extern float left_thigh_angle;

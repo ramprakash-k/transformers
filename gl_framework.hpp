@@ -9,6 +9,7 @@
 namespace csX75
 {
 	extern int state;
+	extern int leg_dir;
 	//1 -> robot
 	//3 -> dino
 
