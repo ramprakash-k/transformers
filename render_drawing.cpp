@@ -12,11 +12,8 @@ float bust_angle_y=0.0f;
 float bust_angle_x=0.0f;
 float armor_angle=0.0f;
 int head_pop=0.0f;
-float head_angle=0.0f;
 float right_arm_angle=0.0f;
 float left_arm_angle=0.0f;
-float right_arm_angle2=0.0f;
-float left_arm_angle2=0.0f;
 float right_forearm_angle=0.0f;
 float left_forearm_angle=0.0f;
 float left_thigh_angle=0.0f;
@@ -34,7 +31,7 @@ float cam_x=0.0f,cam_z=-21.0f,cam_ay=0.0f;
 float pos_x=0,pos_z=5,dir=270;
 
 int camera=1;
-
+bool mirror=true;
 bool light0=true;
 bool light1=true;
 bool light2=true;
@@ -172,7 +169,6 @@ void DrawRobot(void)
             glCallList(neck);
             glPushMatrix();
                 glTranslatef(0,0.1,0);
-                glRotatef(head_angle,0,1,0);
                 glCallList(head);
                 float fac=1.0;
                 if(head_pop<-90)fac=0;
@@ -189,7 +185,6 @@ void DrawRobot(void)
         glPushMatrix();
             glTranslatef(-1.4*5.0/6.0,0,0);
             glRotatef(right_arm_angle,1,0,0);
-            glRotatef(-right_arm_angle2,0,0,1);
             glCallList(upper_arm);
             glPushMatrix();
                 glTranslatef(0,-1.55,0);
@@ -212,7 +207,6 @@ void DrawRobot(void)
             glTranslatef(1.4*5.0/6.0,0,0);
             glScalef(-1,1,1);
             glRotatef(left_arm_angle,1,0,0);
-            glRotatef(-left_arm_angle2,0,0,1);
             glCallList(upper_arm);
             glPushMatrix();
                 glTranslatef(0,-1.55,0);
@@ -314,15 +308,18 @@ void render_drawing(GLFWwindow* window)
 			glEnd();
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
-        glPushMatrix();
-			glScalef(1,1,-1);
-			DrawRobot();
-        glPopMatrix();
+        if(mirror)
+        {
+			glPushMatrix();
+				glScalef(1,1,-1);
+				DrawRobot();
+			glPopMatrix();
+		}
         DrawRobot();
     glPopMatrix();
 }
 
-void transform_dino(GLFWwindow* window)
+void transform_dino(GLFWwindow* window,bool play,int fps,double &tartime)
 {
 	bool flag=true;
 	while(flag)
@@ -362,12 +359,20 @@ void transform_dino(GLFWwindow* window)
 		if(left_foot_angle>0){left_foot_angle-=3;flag=true;}
 		if(height>-2.79){height-=0.02;flag=true;}
 		if(height<-2.81){height+=0.02;flag=true;}
-		render_drawing(window);
-		glfwSwapBuffers(window);
+		if(flag)
+		{
+			render_drawing(window);
+			if(play)
+			{
+				while(glfwGetTime()<tartime);
+				tartime = tartime+1.0/fps;
+			}
+			glfwSwapBuffers(window);
+		}
     }
 }
 
-void transform_robot(GLFWwindow* window)
+void transform_robot(GLFWwindow* window,bool play,int fps,double &tartime)
 {
 	bool flag=true;
 	while(flag)
@@ -404,8 +409,16 @@ void transform_robot(GLFWwindow* window)
 		if(left_foot_angle<90){left_foot_angle+=3;flag=true;}
 		if(height>-1.19){height-=0.02;flag=true;}
 		if(height<-1.21){height+=0.02;flag=true;}
-		render_drawing(window);
-		glfwSwapBuffers(window);
+		if(flag)
+		{
+			render_drawing(window);
+			if(play)
+			{
+				while(glfwGetTime()<tartime);
+				tartime = tartime+1.0/fps;
+			}
+			glfwSwapBuffers(window);
+		}
 	}
 
 }

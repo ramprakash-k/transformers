@@ -93,17 +93,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			if(right_arm_angle==360.0f)right_arm_angle=0.0f;
 		}
 
-		if (key == GLFW_KEY_Q && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
-		{
-			right_arm_angle2-=angle_step;
-			if(right_arm_angle2<0.0f)right_arm_angle2=0.0f;
-		}
-		else if (key == GLFW_KEY_Q && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
-		{
-			right_arm_angle2+=angle_step;
-			if(right_arm_angle2>180.0f)right_arm_angle2=180.0f;
-		}
-
 		// Right forearm
 		if (key == GLFW_KEY_2 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
@@ -128,17 +117,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			if(left_arm_angle==360.0f)left_arm_angle=0.0f;
 		}
 
-		if (key == GLFW_KEY_E && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
-		{
-			left_arm_angle2-=angle_step;
-			if(left_arm_angle2<0.0f)left_arm_angle2=0.0f;
-		}
-		else if (key == GLFW_KEY_E && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
-		{
-			left_arm_angle2+=angle_step;
-			if(left_arm_angle2>180.0f)left_arm_angle2=180.0f;
-		}
-
 		// Left forearm
 		if (key == GLFW_KEY_4 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
@@ -152,16 +130,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 
 		// Head
-		if (key == GLFW_KEY_G && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
-		{
-			head_angle-=angle_step;
-			if (head_angle<-75.0f) head_angle=-75.0f;
-		}
-		if (key == GLFW_KEY_G && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
-		{
-			head_angle+=angle_step;
-			if (head_angle>75.0f) head_angle=75.0f;
-		}
 		if (key == GLFW_KEY_H)
 		{
 			head_pop+=angle_step;
@@ -302,16 +270,25 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 		if (key == GLFW_KEY_SPACE)
 		{
+			double ttt=0;
 			if(state==1)
 			{
-				transform_dino(window);
+				transform_dino(window,0,0,ttt);
 				state=3;
 			}
 			else
 			{
-				transform_robot(window);
+				transform_robot(window,0,0,ttt);
 				state=1;
 			}
+		}
+		if (key == GLFW_KEY_Q&&mirror)
+		{
+			double temp=glfwGetTime();
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glfwSwapBuffers(window);
+			mirror=false;
+			while(glfwGetTime()<temp+0.5);
 		}
 	}
 	if (action ==  GLFW_PRESS || action == GLFW_REPEAT)
@@ -428,10 +405,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 		if (key == GLFW_KEY_V)
 			camera=(camera+1)%3;
-		if (key == GLFW_KEY_B && camera==1)
+		if (key == GLFW_KEY_B && camera==1 && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
 			cam_ay+=3;
-			if(cam_ay>360)cam_ay=0;
+			if(cam_ay==360)cam_ay=0;
+		}
+		if (key == GLFW_KEY_B && camera==1 && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			cam_ay-=3;
+			if(cam_ay==-3)cam_ay=357;
 		}
 		if (key == GLFW_KEY_N && camera==1)
 		{
