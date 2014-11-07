@@ -277,24 +277,24 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		}
 
 		// Right dino leg
-		if (key == GLFW_KEY_A && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		if (key == GLFW_KEY_Z && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
 			right_d_leg_angle+=angle_step;
 			if(right_d_leg_angle>240.0f)right_d_leg_angle=240.0f;
 		}
-		if (key == GLFW_KEY_A && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		if (key == GLFW_KEY_Z && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
 		{
 			right_d_leg_angle-=angle_step;
 			if(right_d_leg_angle<0.0f)right_d_leg_angle=0.0f;
 		}
 
 		// Left dino leg
-		if (key == GLFW_KEY_S && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		if (key == GLFW_KEY_X && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
 		{
 			left_d_leg_angle+=angle_step;
 			if(left_d_leg_angle>240.0f)left_d_leg_angle=240.0f;
 		}
-		if (key == GLFW_KEY_S && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		if (key == GLFW_KEY_X && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
 		{
 			left_d_leg_angle-=angle_step;
 			if(left_d_leg_angle<0.0f)left_d_leg_angle=0.0f;
@@ -442,6 +442,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			cam_z-=3;
 			if(cam_z<-90)cam_z=-90;
+		}
+
+		if (key == GLFW_KEY_P)
+		{
+			loadKeyframe(window);
+		}
+		if (key == GLFW_KEY_S && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			saveKeyframe();
 		}
 	}
 }
