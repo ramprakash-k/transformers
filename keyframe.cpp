@@ -129,7 +129,10 @@ void loadKeyframe(GLFWwindow* window)
 			}
 			if(!rot)
 			{
-				
+				if(pos_x!=px)
+				{
+					
+				}
 				
 				
 				

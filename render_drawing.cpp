@@ -31,7 +31,7 @@ float right_d_leg_angle=0.0f;
 float left_d_leg_angle=0.0f;
 float height=-1.2f;
 float cam_x=0.0f,cam_z=-21.0f,cam_ay=0.0f;
-float pos_x=0,pos_z=0,dir=270;
+float pos_x=0,pos_z=5,dir=270;
 
 int camera=1;
 
@@ -95,6 +95,9 @@ void lights(void)
 
 void DrawRobot(void)
 {
+	glTranslatef(pos_x,0,pos_z);
+    glRotatef(dir-270,0,1,0);
+	glTranslatef(0,1+height,0);
 	GLfloat pos1[]={-0.24,-0.2,0.24,1};
 	GLfloat pos2[]={0,0,1,1};
     glPushMatrix();
@@ -311,9 +314,10 @@ void render_drawing(GLFWwindow* window)
 			glEnd();
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
-        glTranslatef(pos_x,0,pos_z);
-        glRotatef(dir-270,0,1,0);
-        glTranslatef(0,1+height,0);
+        glPushMatrix();
+			glScalef(1,1,-1);
+			DrawRobot();
+        glPopMatrix();
         DrawRobot();
     glPopMatrix();
 }
