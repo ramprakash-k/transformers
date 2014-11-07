@@ -151,11 +151,24 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			if (left_forearm_angle>99.0f) left_forearm_angle=99.0f;
 		}
 
+		// Head
+		if (key == GLFW_KEY_G && (mods & GLFW_MOD_CONTROL) != GLFW_MOD_CONTROL)
+		{
+			head_angle-=angle_step;
+			if (head_angle<-75.0f) head_angle=-75.0f;
+		}
+		if (key == GLFW_KEY_G && (mods & GLFW_MOD_CONTROL) == GLFW_MOD_CONTROL)
+		{
+			head_angle+=angle_step;
+			if (head_angle>75.0f) head_angle=75.0f;
+		}
 		if (key == GLFW_KEY_H)
 		{
 			head_pop+=angle_step;
 			if(head_pop>180)head_pop=-180;
 		}
+
+		// Armour
 		if (key == GLFW_KEY_D)
 		{
 			armor_angle+=angle_step;

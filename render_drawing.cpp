@@ -169,6 +169,7 @@ void DrawRobot(void)
             glCallList(neck);
             glPushMatrix();
                 glTranslatef(0,0.1,0);
+                glRotatef(head_angle,0,1,0);
                 glCallList(head);
                 float fac=1.0;
                 if(head_pop<-90)fac=0;
