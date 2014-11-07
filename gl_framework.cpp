@@ -10,6 +10,11 @@
 namespace csX75
 {
 
+	int state=1;
+	int win_width;
+	int win_height;
+	int leg_dir=1;
+
 //! Initialize GL State
 void initGL(void)
 {
@@ -246,7 +251,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			if(dir==360.0f)dir=0.0f;
 			dir+=2*angle_step;
-			
+
 			if(state == 3)
 			{
 				if(right_arm_angle>285)
@@ -271,7 +276,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		{
 			dir-=2*angle_step;
 			if(dir==-6.0f)dir=354.0f;
-			
+
 			if(state == 3)
 			{
 				if(right_arm_angle<315)
@@ -338,7 +343,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			if(state == 1) {
 				right_arm_angle += 3*leg_dir;
 				left_arm_angle -= 3*leg_dir;
-				
+
 				right_thigh_angle -= 3*leg_dir;
 				left_thigh_angle += 3*leg_dir;
 

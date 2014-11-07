@@ -8,13 +8,10 @@
 
 namespace csX75
 {
-	int win_width;
-	int win_height;
-	int state=1;
+	extern int state;
 	//1 -> robot
 	//3 -> dino
 
-	int leg_dir=1;
 	//! Initialize GL State
 	void initGL(void);
 

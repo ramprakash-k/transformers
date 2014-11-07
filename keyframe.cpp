@@ -84,11 +84,11 @@ void loadKeyframe(GLFWwindow* window)
 		headlight;
 	render_drawing(window);
 	glfwSwapBuffers(window);
-	usleep(fps);
+
 	while(file.good())
 	{
-		
-		
+
+
 		render_drawing(window);
 		glfwSwapBuffers(window);
 	}
