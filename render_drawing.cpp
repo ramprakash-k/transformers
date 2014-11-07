@@ -13,8 +13,6 @@ float bust_angle_x=0.0f;
 float armor_angle=0.0f;
 int head_pop=0.0f;
 float head_angle=0.0f;
-float head_angle1=0.0f;
-float head_angle2=0.0f;
 float right_arm_angle=0.0f;
 float left_arm_angle=0.0f;
 float right_arm_angle2=0.0f;
@@ -301,13 +299,13 @@ void render_drawing(GLFWwindow* window)
         glPushMatrix();
 			glBegin(GL_QUADS);
 			glNormal3f(0,1,0);
-			for(int i=1;i<=10;i++)
-			for(int j=1;j<=10;j++)
+			for(int i=1;i<=40;i++)
+			for(int j=1;j<=25;j++)
 			{
-				glTexCoord2f(0,1);glVertex3f(-100+20*(i-1),-5,-100+20*j);
-				glTexCoord2f(0,0);glVertex3f(-100+20*(i-1),-5,-100+20*(j-1));
-				glTexCoord2f(1,0);glVertex3f(-100+20*i,-5,-100+20*(j-1));
-				glTexCoord2f(1,1);glVertex3f(-100+20*i,-5,-100+20*j);
+				glTexCoord2f(0,1);glVertex3f(-100+5*(i-1),-5,-100+8*j);
+				glTexCoord2f(0,0);glVertex3f(-100+5*(i-1),-5,-100+8*(j-1));
+				glTexCoord2f(1,0);glVertex3f(-100+5*i,-5,-100+8*(j-1));
+				glTexCoord2f(1,1);glVertex3f(-100+5*i,-5,-100+8*j);
 			}
 			glEnd();
         glPopMatrix();

@@ -12,10 +12,6 @@ void saveKeyframe()
 	file.open("keyframes.txt", std::ios::app);
 	file<<
 		csX75::state<<" "<<
-		//~ bust_angle_y<<" "<<
-		//~ bust_angle_x<<" "<<
-		//~ armor_angle<<" "<<
-		//~ head_pop<<" "<<
 		right_arm_angle<<" "<<
 		left_arm_angle<<" "<<
 		right_forearm_angle<<" "<<
@@ -24,13 +20,6 @@ void saveKeyframe()
 		right_thigh_angle<<" "<<
 		right_leg_angle<<" "<<
 		left_leg_angle<<" "<<
-		//~ right_foot_angle<<" "<<
-		//~ left_foot_angle<<" "<<
-		//~ left_d_leg_angle<<" "<<
-		//~ right_wrist_angle<<" "<<
-		//~ left_wrist_angle<<" "<<
-		//~ right_d_leg_angle<<" "<<
-		//~ height<<" "<<
 		cam_x<<" "<<
 		cam_z<<" "<<
 		cam_ay<<" "<<
@@ -52,10 +41,6 @@ void loadKeyframe(GLFWwindow* window)
 	std::ifstream file("keyframes.txt");
 	file>>
 		csX75::state>>
-		//~ bust_angle_y>>
-		//~ bust_angle_x>>
-		//~ armor_angle>>
-		//~ head_pop>>
 		right_arm_angle>>
 		left_arm_angle>>
 		right_forearm_angle>>
@@ -64,13 +49,6 @@ void loadKeyframe(GLFWwindow* window)
 		right_thigh_angle>>
 		right_leg_angle>>
 		left_leg_angle>>
-		//~ right_foot_angle>>
-		//~ left_foot_angle>>
-		//~ left_d_leg_angle>>
-		//~ right_wrist_angle>>
-		//~ left_wrist_angle>>
-		//~ right_d_leg_angle>>
-		//~ height>>
 		cam_x>>
 		cam_z>>
 		cam_ay>>
@@ -82,19 +60,87 @@ void loadKeyframe(GLFWwindow* window)
 		light1>>
 		light2>>
 		headlight;
-	int fps=2;
+	int fps=60;
 	double targetTime=0.0;
 	glfwSetTime(0);
 	render_drawing(window);
 	glfwSwapBuffers(window);
+	int st,cam;
+	float ra,rf,la,lf,rt,lt,rl,ll,cx,cz,cy,px,pz,d;
+	bool l0,l1,l2,h;
 	while(file.good())
 	{
-		
+		file>>st>>ra>>la>>rf>>lf>>lt>>rt>>rl>>ll>>cx>>cz>>cy>>px>>pz>>d>>cam>>l0>>l1>>l2>>h;
+		bool flag=true,move=true,rot=true;
+		while(flag)
 		{
-			while(glfwGetTime()<targetTime);
-			targetTime = targetTime+1.0/fps;
-			render_drawing(window);
-			glfwSwapBuffers(window);
+			flag=false;move=false;rot=false;
+			if(cam!=camera){camera=cam;flag=true;}
+			if(st!=csX75::state){if(csX75::state==1){transform_dino(window);csX75::state=3;}else{transform_robot(window);csX75::state=1;}}
+			if(d>dir)
+			{
+				if(dir==360.0f)dir=0.0f;
+				dir+=6;
+				if(csX75::state == 3)
+				{
+					if(right_arm_angle>285)
+					{
+						right_arm_angle -= 3;
+						left_arm_angle += 3;
+					}
+				}
+				if(csX75::state == 1)
+				{
+					if(right_thigh_angle>-15)
+					{
+						right_arm_angle += 3;
+						left_arm_angle -= 3;
+						right_thigh_angle -= 3;
+						left_thigh_angle += 3;
+					}
+				}
+				rot=true;
+				flag=true;
+			}
+			if(d<dir)
+			{
+				dir-=6;
+				if(dir==-6.0f)dir=354.0f;
+				if(csX75::state == 3)
+				{
+					if(right_arm_angle<315)
+					{
+						right_arm_angle += 3;
+						left_arm_angle -= 3;
+					}
+				}
+				if(csX75::state == 1)
+				{
+					if(right_thigh_angle<15)
+					{
+						right_arm_angle -= 3;
+						left_arm_angle += 3;
+						right_thigh_angle += 3;
+						left_thigh_angle -= 3;
+					}
+				}
+				rot=true;
+				flag=true;
+			}
+			if(!rot)
+			{
+				
+				
+				
+				
+			}
+			if(flag)
+			{
+				while(glfwGetTime()<targetTime);
+				targetTime = targetTime+1.0/fps;
+				render_drawing(window);
+				glfwSwapBuffers(window);
+			}
 		}
 	}
 
