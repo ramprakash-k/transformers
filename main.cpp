@@ -43,8 +43,6 @@ int main (int argc, char *argv[])
 	//Initialize GL state
 	csX75::initGL();
 
-	glfwSetTime(0);
-
 	while (glfwWindowShouldClose(window) == 0)
 	{
 		// Render here

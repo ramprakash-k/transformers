@@ -260,16 +260,8 @@ void DrawRobot(void)
     glPopMatrix();
 }
 
-int fps=2;
-double targetTime=0.0;
-
 void render_drawing(GLFWwindow* window)
 {
-  while(glfwGetTime()<targetTime);
-  targetTime = targetTime+1.0/fps;
-
-  // saveKeyframe();
-
 	GLfloat temp[]={0,0,0,0};
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glPushMatrix();

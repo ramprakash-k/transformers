@@ -12,10 +12,10 @@ void saveKeyframe()
 	file.open("keyframes.txt", std::ios::app);
 	file<<
 		csX75::state<<" "<<
-		bust_angle_y<<" "<<
-		bust_angle_x<<" "<<
-		armor_angle<<" "<<
-		head_pop<<" "<<
+		//~ bust_angle_y<<" "<<
+		//~ bust_angle_x<<" "<<
+		//~ armor_angle<<" "<<
+		//~ head_pop<<" "<<
 		right_arm_angle<<" "<<
 		left_arm_angle<<" "<<
 		right_forearm_angle<<" "<<
@@ -24,13 +24,13 @@ void saveKeyframe()
 		right_thigh_angle<<" "<<
 		right_leg_angle<<" "<<
 		left_leg_angle<<" "<<
-		right_foot_angle<<" "<<
-		left_foot_angle<<" "<<
-		left_d_leg_angle<<" "<<
-		right_wrist_angle<<" "<<
-		left_wrist_angle<<" "<<
-		right_d_leg_angle<<" "<<
-		height<<" "<<
+		//~ right_foot_angle<<" "<<
+		//~ left_foot_angle<<" "<<
+		//~ left_d_leg_angle<<" "<<
+		//~ right_wrist_angle<<" "<<
+		//~ left_wrist_angle<<" "<<
+		//~ right_d_leg_angle<<" "<<
+		//~ height<<" "<<
 		cam_x<<" "<<
 		cam_z<<" "<<
 		cam_ay<<" "<<
@@ -52,10 +52,10 @@ void loadKeyframe(GLFWwindow* window)
 	std::ifstream file("keyframes.txt");
 	file>>
 		csX75::state>>
-		bust_angle_y>>
-		bust_angle_x>>
-		armor_angle>>
-		head_pop>>
+		//~ bust_angle_y>>
+		//~ bust_angle_x>>
+		//~ armor_angle>>
+		//~ head_pop>>
 		right_arm_angle>>
 		left_arm_angle>>
 		right_forearm_angle>>
@@ -64,13 +64,13 @@ void loadKeyframe(GLFWwindow* window)
 		right_thigh_angle>>
 		right_leg_angle>>
 		left_leg_angle>>
-		right_foot_angle>>
-		left_foot_angle>>
-		left_d_leg_angle>>
-		right_wrist_angle>>
-		left_wrist_angle>>
-		right_d_leg_angle>>
-		height>>
+		//~ right_foot_angle>>
+		//~ left_foot_angle>>
+		//~ left_d_leg_angle>>
+		//~ right_wrist_angle>>
+		//~ left_wrist_angle>>
+		//~ right_d_leg_angle>>
+		//~ height>>
 		cam_x>>
 		cam_z>>
 		cam_ay>>
@@ -82,15 +82,20 @@ void loadKeyframe(GLFWwindow* window)
 		light1>>
 		light2>>
 		headlight;
+	int fps=2;
+	double targetTime=0.0;
+	glfwSetTime(0);
 	render_drawing(window);
 	glfwSwapBuffers(window);
-
 	while(file.good())
 	{
-
-
-		render_drawing(window);
-		glfwSwapBuffers(window);
+		
+		{
+			while(glfwGetTime()<targetTime);
+			targetTime = targetTime+1.0/fps;
+			render_drawing(window);
+			glfwSwapBuffers(window);
+		}
 	}
 
 }
